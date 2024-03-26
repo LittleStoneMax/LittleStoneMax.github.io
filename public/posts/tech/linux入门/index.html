@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Linux入门 | Stone&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="简单面经">
+<meta name="author" content="LittleStoneMax">
+<link rel="canonical" href="https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="icon" type="image/png" sizes="16x16" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="icon" type="image/png" sizes="32x32" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="apple-touch-icon" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="mask-icon" href="https://littlestonemax.github.io/img/Q.gif">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script defer src="https://unpkg.com/mermaid@8.8.1/dist/mermaid.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = ""; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<meta property="og:title" content="Linux入门" />
+<meta property="og:description" content="简单面经" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-26T15:46:44+08:00" />
+<meta property="article:modified_time" content="2024-03-26T15:46:44+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux入门"/>
+<meta name="twitter:description" content="简单面经"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+
+        {
+          "@type": "ListItem",
+          "position":  1 ,
+          "name": "📚文章",
+          "item": "https://littlestonemax.github.io/posts/"
+        },
+
+        {
+          "@type": "ListItem",
+          "position":  2 ,
+          "name": "👨🏻‍💻 技术",
+          "item": "https://littlestonemax.github.io/posts/tech/"
+        }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Linux入门",
+      "item": "https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux入门",
+  "name": "Linux入门",
+  "description": "简单面经",
+  "keywords": [
+    ""
+  ],
+  "articleBody": "基础问题 绝对路径、当前目录、上层目录、主目录分别用什么表示 绝对路径从根目录（/）开始的完整路径 当前目录./ 上层目录../ 主目录~/ pwd\nLinux有哪些文件类型 文件类型 介绍 普通文件 目录文件 设备文件 块设备文件和字符设备文件 链接文件 管道文件 套接字文件 ls命令什么功能，有哪些参数？ 显示指定目录下的所有文件和目录\n-a：显示所有文件及目录（包括以\".“开头的隐藏文） -l：以长格式显示文件和目录信息，包括权限、所有者、大小、创建时间等 -r：倒序显示文件和目录 -t：将按照修改时间排序，最新的文件在最前面 -F：在列出的文件名称后加一符号，例如可执行档则加*, 目录则加 “/” -R：递归显示目录中的所有文件和子目录 复制文件夹命令怎么写？ cp -r递归复制\ncp -r 源文件夹路径目标文件夹路径 什么命令可以对文件内容进行统计？ 在Linux中，可以使用 wc 命令对文件内容进行统计常用以下参数及其功能：\n-l：统计行数； -w：统计单词数； -c：统计字节数； -m：统计字符数。 要统计一个名为 file.txt的文件的行数、单词数和字节数，可以执行以下命令：\nwc -lwc file.txt 查看文件内容的命令有哪些？ cat 命令：这个命令可以将整个文件内容打印到终端。例如，要查看名为\"filename\"的文件，可以使用 cat filename 命令。\nmore 命令：这个命令能够以分页形式显示文件内容。例如，要查看名为\"filename\"的文件，可以使用 more filename 命令。\nless 命令：与 more 命令类似，less 命令也能够以分页形式显示文件内容，但同时它还允许用户向上或向下滚动查看文件内容。\nhead 命令：这个命令常用于查看文件的开头几行内容。例如，要查看名为\"filename\"的文件的前10行，可以使用 head -n 10 filename 命令。\ntail 命令：与 head 命令相对，tail 命令常用于查看文件的最后几行内容，并且会持续刷新，适合实时观察程序的日志情况。例如，要查看名为\"filename\"的文件的最后10行，可使用 tail -n 10 filename 命令。\n什么是inode和block？ inode是索引节点，用来存储数据属性信息，包含了文件大小、属组、归属的用户组、读写权限、文件类型、修改时间等元信息，同时还具有指向文件实体的指针功能 block是数据块，负责存储实际的数据内容，包括文件的实际文本信息等。\n硬链接和软连接的区别 介绍一下vim 文件权限修改的命令？格式是什么样的？ chmod 命令 数字格式 符号格式\n怎么查看所有进程和指定进程？ 查看所有进程：使用 ps 命令。基本语法是 ps -ef，其中 -e 选项表示显示所有进程，-f 选项表示显示完整格式的输出 查看指定进程：可以使用 ps 命令结合进程ID（PID）来查看指定进程。基本语法是 ps -p PID -ef，其中 -p PID 选项表示只显示指定PID的进程 top命令：可以实时地显示系统中各个进程的资源占用情况，包括CPU、内存等\n终止进程的命令？ kill 命令：可以向指定进程发送信号，从而终止进程 基本语法是 kill [信号] 进程ID 可以使用 kill -9 进程ID 来强制终止进程。 pkill 命令：可以根据进程名或进程所属的用户和组名来终止进程。基本语法是 pkill [选项] 进程名 可以使用 pkill firefox 来终止所有名为firefox的进程。 killall 命令：可以根据进程名来终止进程。基本语法是 killall 进程名。例如，你可以使用 killall firefox 来终止所有名为firefox的进程。 sigterm 命令：可以向指定进程发送SIGTERM信号，从而请求进程终止。基本语法是 sigterm进程ID 可以使用 sigterm 12345 来请求PID为12345的进程终止。 搜索文件的命令是什么？可以加什么选项？ find 命令：用于查找文件，它可以根据文件名、inode号等进行搜索 基本的语法是 find [路径] [选项] [表达式] find /path -type f -iname filename 会搜索指定路径下所有类型为普通文件并且文件名为filename的文件。\nfind /path -type f -iname filename 会搜索指定路径下所有类型为普通文件并且文件名为filename的文件。 查看磁盘使用空间的命令？ 在Linux系统中，可以使用以下命令查看磁盘使用空间：\ndf 命令：可以显示文件系统的总容量、已用空间、可用空间和挂载点等信息。 du 命令：可以显示指定目录或文件的占用空间大小。 lsblk 命令：可以列出所有可用块设备的信息，包括磁盘、分区等。 mount 命令：可以显示当前系统已经挂载的文件系统列表。 fdisk -l 命令：可以列出所有可用的磁盘和分区信息。 查看ip地址和接口信息的命令？ 查看IP地址：ifconfig 或 ip addr 查看接口信息：ifconfig 或 ip link\ngcc编译分哪几个步骤？ GCC编译过程主要包含以下四个步骤：\n预处理：这一阶段将源文件中的预处理指令进行处理，比如包含其他文件的头文件或者定义宏等。经过处理后，会生成一个预编译文件 编译：预编译之后，编译器将处理源代码，将其转换为汇编语言。这个阶段会生成对应的汇编代码。 汇编：汇编器将上一步得到的汇编代码转换为二进制目标文件。每一个源文件会被转换成一个单独的目标文件（.O文件） 链接：最后链接器将多个目标文件以及所需的库文件进行链接，生成最终可执行文件 动态链接库和静态链接库的区别？ MakeFile的两个常用函数和三个自动变量 Makefile中的两个常用函数是 addprefix 和 patsubst，以及三个自动变量：$(MAKEFILE_LIST)、$(wildcard) 和 $(foreach)。\naddprefix 函数用于给目标文件名添加前缀。语法：$(addprefix prefix, target)。例如： %.o: %.c gcc -c $(addprefix build/, $\u003c) 这个规则表示将 .c 文件编译成 .o 文件，并使用 build/ 作为前缀。\npatsubst 函数用于替换字符串中的匹配项。语法：$(patsubst pattern, replacement, string)。例如： OBJECTS := main.o foo.o bar.o main.o: main.c gcc -c $(patsubst %.c, %.o, $\u003c) 这个规则表示将 main.c 编译成 main.o，并将所有的 .c 替换为 .o。\n自动变量： $(MAKEFILE_LIST)：包含当前Makefile的文件列表。 $(wildcard)：匹配指定模式的文件列表。 $(foreach)：遍历一个列表并对每个元素执行指定的命令。 GDB有哪些指令？ GDB（GNU调试器）是一个功能强大的调试工具，它支持多种编程语言和处理器架构。以下是一些常用的GDB指令：\nbreak：设置断点。例如break main 在main函数处设置断点 run：启动程序。例如run 运行当前被调试的程序 next：执行下一行代码，但不进入函数。例如next 执行下一行代码 step：执行下一行代码，如果遇到函数调用，则进入函数内部。例如step 执行下一行代码并进入函数 continue：继续执行程序，直到遇到下一个断点或程序结束。例如continue 继续执行程序 print：打印变量的值。例如print x 打印变量x的值 watch：监视表达式的值变化。例如watch x 监视变量x的值变化 info locals：显示当前作用域内的局部变量信息。例如info locals 显示当前作用域内的局部变量信息 info args：显示当前函数的参数信息。例如info args 显示当前函数参数信息 backtrace：显示当前的栈帧信息。例如backtrace 显示当前的栈帧信息。 frame：切换到指定的栈帧。例如frame 2 切换到第2个栈帧。 list：显示当前源文件的部分或全部代码。例如list main.c:5-10 显示main.c文件的第5行到第10行代码。 source：加载指定的源文件并执行。例如source file.c 加载file.c文件并执行。 delete breakpoint：删除指定的断点。例如：delete 1 删除编号为1的断点。 help：查看GDB的帮助文档。例如help breakpoint 查看关于断点的帮助文档 如何在Linux系统中查看TCP状态 TCP的连接状态查看，在Linux中可以用netstat -napt查看 ![[Pasted image 20231226183740.png]]\n-a:列出所有端口 -at:列出所有TCP端口 -au:列出所有UDP端口 -p:显示正在使用Socket的程序识别码和程序名称 -n:显示IP地址和端口号的数字格式，不进行反向解析 top 在Linux系统中，top命令是常用的分析性能的工具，能够实时监控系统中各个进程资源占用的情况，类似于windows中任务管理器\necho echo会将输入的字符串送往标准输出\nps ",
+  "wordCount" : "3249",
+  "inLanguage": "zh",
+  "datePublished": "2024-03-26T15:46:44+08:00",
+  "dateModified": "2024-03-26T15:46:44+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "LittleStoneMax"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Stone's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://littlestonemax.github.io/img/Q.gif"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    (function () {
+        let  arr,reg = new RegExp("(^| )"+"change-themes"+"=([^;]*)(;|$)");
+        if(arr = document.cookie.match(reg)) {
+        } else {
+            if (new Date().getHours() >= 19 || new Date().getHours() < 6) {
+                document.body.classList.add('dark');
+                localStorage.setItem("pref-theme", 'dark');
+            } else {
+                document.body.classList.remove('dark');
+                localStorage.setItem("pref-theme", 'light');
+            }
+        }
+    })()
+
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://littlestonemax.github.io/" accesskey="h" title="Sulv&#39;s Blog (Alt + H)">
+            <img src="https://littlestonemax.github.io/img/Q.gif" alt="logo" aria-label="logo"
+                 height="35">Sulv&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://littlestonemax.github.io/search" title="🔍 搜索 (Alt &#43; /)" accesskey=/>
+                <span>🔍 搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/" title="🏠 主页">
+                <span>🏠 主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/posts" title="📚 文章">
+                <span>📚 文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/tags" title="🧩 标签">
+                <span>🧩 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/archives/" title="⏱️ 时间轴">
+                <span>⏱️ 时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/about" title="🙋🏻‍♂️ 关于">
+                <span>🙋🏻‍♂️ 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/links" title="🤝 友链">
+                <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main page">
+<style>
+    i[id*="post_meta_style"] {
+        display: flex;
+        align-items: center;
+        margin: 0 0 10px 0;
+    }
+</style>
+
+<article class="post-single">
+    <div id="single-content">
+        <header class="post-header">
+            <div class="breadcrumbs"><a href="https://littlestonemax.github.io/">🏠 主页</a>&nbsp;»&nbsp;<a href="https://littlestonemax.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://littlestonemax.github.io/posts/tech/">👨🏻‍💻 技术</a></div>
+            <h1 class="post-title">
+                Linux入门
+            </h1>
+            <div class="post-description">
+                简单面经
+            </div>
+            <div class="post-meta">
+
+<style>
+    i[id*="post_meta_style"] {
+        display: flex;
+        align-items: center;
+        margin: 0 0 10px 0;
+    }
+
+    .parent-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        opacity: 0.8;
+    }
+</style>
+
+<span class="parent-post-meta">
+    <span id="post_meta_style_1">
+        <span class="fa fa-calendar-check-o"></span>
+        <span>2024-03-26
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    <span id="post_meta_style_3">
+        <span class="fa fa-file-word-o"></span>
+        <span>3249字
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_4">
+        <span class="fa fa-clock-o"></span>
+        <span>7分钟
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_5">
+        <span class="fa fa-user-o"></span>
+        <span>LittleStoneMax
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_6">
+        <span class="fa fa-tags" style="opacity: 0.8"></span>
+        <span>
+            <span class="post-tags-meta">
+            </span>
+        </span>
+    </span>
+</span>
+<span style="opacity: 0.8;">
+                    <span id="post_meta_style_7">
+                        &nbsp;&nbsp;
+                        <span class="fa fa-eye" ></span>
+                        <span>
+                            <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+                            &nbsp;&nbsp;
+                        </span>
+                    </span>
+                    <span id="post_meta_style_8">
+                        <span class="fa fa-commenting-o"></span>
+                        <span>
+                            <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js"></script>
+                            <script>
+                                let url = document.documentURI
+                                
+                                let dnsUrl = "https://littlestonemax.github.io/"
+                                let urlSplit = url.split(dnsUrl)
+                                let finalUrl = urlSplit[1]
+                                if (finalUrl[0] !== '/') {
+                                    finalUrl = '/'+finalUrl
+                                }
+                                twikoo.getCommentsCount({
+                                    envId:  null , 
+                                region:  null , 
+                                urls: [ 
+                                    
+                                    finalUrl,
+                                ],
+                                    includeReply: false 
+                                }).then(function (res) {
+                                    let count = res[0].count
+                                    const obj = document.getElementById("comment_count");
+                                    obj.innerText = count
+                                    
+                                    
+                                    
+                                }).catch(function (err) {
+                                    
+                                    console.error(err);
+                                });
+                            </script>
+                            <span id="comment_count"></span>
+                        </span>
+                    </span>
+                </span>
+
+</div>
+        </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%9f%ba%e7%a1%80%e9%97%ae%e9%a2%98" aria-label="基础问题"><strong>基础问题</strong></a><ul>
+                        
+                <li>
+                    <a href="#%e7%bb%9d%e5%af%b9%e8%b7%af%e5%be%84%e5%bd%93%e5%89%8d%e7%9b%ae%e5%bd%95%e4%b8%8a%e5%b1%82%e7%9b%ae%e5%bd%95%e4%b8%bb%e7%9b%ae%e5%bd%95%e5%88%86%e5%88%ab%e7%94%a8%e4%bb%80%e4%b9%88%e8%a1%a8%e7%a4%ba" aria-label="绝对路径、当前目录、上层目录、主目录分别用什么表示">绝对路径、当前目录、上层目录、主目录分别用什么表示</a></li>
+                <li>
+                    <a href="#linux%e6%9c%89%e5%93%aa%e4%ba%9b%e6%96%87%e4%bb%b6%e7%b1%bb%e5%9e%8b" aria-label="Linux有哪些文件类型">Linux有哪些文件类型</a></li>
+                <li>
+                    <a href="#ls%e5%91%bd%e4%bb%a4%e4%bb%80%e4%b9%88%e5%8a%9f%e8%83%bd%e6%9c%89%e5%93%aa%e4%ba%9b%e5%8f%82%e6%95%b0" aria-label="ls命令什么功能，有哪些参数？">ls命令什么功能，有哪些参数？</a></li>
+                <li>
+                    <a href="#%e5%a4%8d%e5%88%b6%e6%96%87%e4%bb%b6%e5%a4%b9%e5%91%bd%e4%bb%a4%e6%80%8e%e4%b9%88%e5%86%99" aria-label="复制文件夹命令怎么写？">复制文件夹命令怎么写？</a></li>
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e5%91%bd%e4%bb%a4%e5%8f%af%e4%bb%a5%e5%af%b9%e6%96%87%e4%bb%b6%e5%86%85%e5%ae%b9%e8%bf%9b%e8%a1%8c%e7%bb%9f%e8%ae%a1" aria-label="什么命令可以对文件内容进行统计？">什么命令可以对文件内容进行统计？</a></li>
+                <li>
+                    <a href="#%e6%9f%a5%e7%9c%8b%e6%96%87%e4%bb%b6%e5%86%85%e5%ae%b9%e7%9a%84%e5%91%bd%e4%bb%a4%e6%9c%89%e5%93%aa%e4%ba%9b" aria-label="查看文件内容的命令有哪些？">查看文件内容的命令有哪些？</a></li>
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%afinode%e5%92%8cblock" aria-label="什么是inode和block？">什么是inode和block？</a></li>
+                <li>
+                    <a href="#%e7%a1%ac%e9%93%be%e6%8e%a5%e5%92%8c%e8%bd%af%e8%bf%9e%e6%8e%a5%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="硬链接和软连接的区别">硬链接和软连接的区别</a></li>
+                <li>
+                    <a href="#%e4%bb%8b%e7%bb%8d%e4%b8%80%e4%b8%8bvim" aria-label="介绍一下vim">介绍一下vim</a></li>
+                <li>
+                    <a href="#%e6%96%87%e4%bb%b6%e6%9d%83%e9%99%90%e4%bf%ae%e6%94%b9%e7%9a%84%e5%91%bd%e4%bb%a4%e6%a0%bc%e5%bc%8f%e6%98%af%e4%bb%80%e4%b9%88%e6%a0%b7%e7%9a%84" aria-label="文件权限修改的命令？格式是什么样的？">文件权限修改的命令？格式是什么样的？</a></li>
+                <li>
+                    <a href="#%e6%80%8e%e4%b9%88%e6%9f%a5%e7%9c%8b%e6%89%80%e6%9c%89%e8%bf%9b%e7%a8%8b%e5%92%8c%e6%8c%87%e5%ae%9a%e8%bf%9b%e7%a8%8b" aria-label="怎么查看所有进程和指定进程？">怎么查看所有进程和指定进程？</a></li>
+                <li>
+                    <a href="#%e7%bb%88%e6%ad%a2%e8%bf%9b%e7%a8%8b%e7%9a%84%e5%91%bd%e4%bb%a4" aria-label="终止进程的命令？">终止进程的命令？</a></li>
+                <li>
+                    <a href="#%e6%90%9c%e7%b4%a2%e6%96%87%e4%bb%b6%e7%9a%84%e5%91%bd%e4%bb%a4%e6%98%af%e4%bb%80%e4%b9%88%e5%8f%af%e4%bb%a5%e5%8a%a0%e4%bb%80%e4%b9%88%e9%80%89%e9%a1%b9" aria-label="搜索文件的命令是什么？可以加什么选项？">搜索文件的命令是什么？可以加什么选项？</a></li>
+                <li>
+                    <a href="#%e6%9f%a5%e7%9c%8b%e7%a3%81%e7%9b%98%e4%bd%bf%e7%94%a8%e7%a9%ba%e9%97%b4%e7%9a%84%e5%91%bd%e4%bb%a4" aria-label="查看磁盘使用空间的命令？">查看磁盘使用空间的命令？</a></li>
+                <li>
+                    <a href="#%e6%9f%a5%e7%9c%8bip%e5%9c%b0%e5%9d%80%e5%92%8c%e6%8e%a5%e5%8f%a3%e4%bf%a1%e6%81%af%e7%9a%84%e5%91%bd%e4%bb%a4" aria-label="查看ip地址和接口信息的命令？">查看ip地址和接口信息的命令？</a></li>
+                <li>
+                    <a href="#gcc%e7%bc%96%e8%af%91%e5%88%86%e5%93%aa%e5%87%a0%e4%b8%aa%e6%ad%a5%e9%aa%a4" aria-label="gcc编译分哪几个步骤？">gcc编译分哪几个步骤？</a></li>
+                <li>
+                    <a href="#%e5%8a%a8%e6%80%81%e9%93%be%e6%8e%a5%e5%ba%93%e5%92%8c%e9%9d%99%e6%80%81%e9%93%be%e6%8e%a5%e5%ba%93%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="动态链接库和静态链接库的区别？">动态链接库和静态链接库的区别？</a></li>
+                <li>
+                    <a href="#makefile%e7%9a%84%e4%b8%a4%e4%b8%aa%e5%b8%b8%e7%94%a8%e5%87%bd%e6%95%b0%e5%92%8c%e4%b8%89%e4%b8%aa%e8%87%aa%e5%8a%a8%e5%8f%98%e9%87%8f" aria-label="MakeFile的两个常用函数和三个自动变量">MakeFile的两个常用函数和三个自动变量</a></li>
+                <li>
+                    <a href="#gdb%e6%9c%89%e5%93%aa%e4%ba%9b%e6%8c%87%e4%bb%a4" aria-label="GDB有哪些指令？">GDB有哪些指令？</a></li>
+                <li>
+                    <a href="#%e5%a6%82%e4%bd%95%e5%9c%a8linux%e7%b3%bb%e7%bb%9f%e4%b8%ad%e6%9f%a5%e7%9c%8btcp%e7%8a%b6%e6%80%81" aria-label="如何在Linux系统中查看TCP状态">如何在Linux系统中查看TCP状态</a></li>
+                <li>
+                    <a href="#top" aria-label="top">top</a></li>
+                <li>
+                    <a href="#echo" aria-label="echo">echo</a></li>
+                <li>
+                    <a href="#ps" aria-label="ps">ps</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        if (elements) {
+            activeElement = Array.from(elements).find((element) => {
+                if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                    (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                    return element;
+                }
+            }) || activeElement
+
+            elements.forEach(element => {
+                const id = encodeURI(element.getAttribute('id')).toLowerCase();
+                if (element === activeElement){
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+                } else {
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+                }
+            })
+        }
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+        <div class="post-content"><h2 id="基础问题"><strong>基础问题</strong><a hidden class="anchor" aria-hidden="true" href="#基础问题">#</a></h2>
+<h3 id="绝对路径当前目录上层目录主目录分别用什么表示">绝对路径、当前目录、上层目录、主目录分别用什么表示<a hidden class="anchor" aria-hidden="true" href="#绝对路径当前目录上层目录主目录分别用什么表示">#</a></h3>
+<p>绝对路径从根目录（/）开始的完整路径
+当前目录./ 上层目录../ 主目录~/
+pwd</p>
+<h3 id="linux有哪些文件类型">Linux有哪些文件类型<a hidden class="anchor" aria-hidden="true" href="#linux有哪些文件类型">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件类型</th>
+<th style="text-align:center">介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通文件</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">目录文件</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">设备文件</td>
+<td style="text-align:center">块设备文件和字符设备文件</td>
+</tr>
+<tr>
+<td style="text-align:center">链接文件</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">管道文件</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">套接字文件</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ls命令什么功能有哪些参数">ls命令什么功能，有哪些参数？<a hidden class="anchor" aria-hidden="true" href="#ls命令什么功能有哪些参数">#</a></h3>
+<p>显示指定目录下的所有文件和目录</p>
+<ul>
+<li>-a：显示所有文件及目录（包括以&quot;.&ldquo;开头的隐藏文）</li>
+<li>-l：以长格式显示文件和目录信息，包括权限、所有者、大小、创建时间等</li>
+<li>-r：倒序显示文件和目录</li>
+<li>-t：将按照修改时间排序，最新的文件在最前面</li>
+<li>-F：在列出的文件名称后加一符号，例如可执行档则加*, 目录则加 &ldquo;/&rdquo;</li>
+<li>-R：递归显示目录中的所有文件和子目录</li>
+</ul>
+<h3 id="复制文件夹命令怎么写">复制文件夹命令怎么写？<a hidden class="anchor" aria-hidden="true" href="#复制文件夹命令怎么写">#</a></h3>
+<p>cp -r递归复制</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp -r 源文件夹路径目标文件夹路径
+</span></span></code></pre></div><h3 id="什么命令可以对文件内容进行统计">什么命令可以对文件内容进行统计？<a hidden class="anchor" aria-hidden="true" href="#什么命令可以对文件内容进行统计">#</a></h3>
+<p>在Linux中，可以使用 <code>wc</code> 命令对文件内容进行统计常用以下参数及其功能：</p>
+<ul>
+<li><code>-l</code>：统计行数；</li>
+<li><code>-w</code>：统计单词数；</li>
+<li><code>-c</code>：统计字节数；</li>
+<li><code>-m</code>：统计字符数。</li>
+</ul>
+<p>要统计一个名为 file.txt的文件的行数、单词数和字节数，可以执行以下命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>wc -lwc file.txt
+</span></span></code></pre></div><h3 id="查看文件内容的命令有哪些">查看文件内容的命令有哪些？<a hidden class="anchor" aria-hidden="true" href="#查看文件内容的命令有哪些">#</a></h3>
+<ol>
+<li>
+<p><code>cat</code> 命令：这个命令可以将整个文件内容打印到终端。例如，要查看名为&quot;filename&quot;的文件，可以使用 <code>cat filename</code> 命令。</p>
+</li>
+<li>
+<p><code>more</code> 命令：这个命令能够以分页形式显示文件内容。例如，要查看名为&quot;filename&quot;的文件，可以使用 <code>more filename</code> 命令。</p>
+</li>
+<li>
+<p><code>less</code> 命令：与 <code>more</code> 命令类似，<code>less</code> 命令也能够以分页形式显示文件内容，但同时它还允许用户向上或向下滚动查看文件内容。</p>
+</li>
+<li>
+<p><code>head</code> 命令：这个命令常用于查看文件的开头几行内容。例如，要查看名为&quot;filename&quot;的文件的前10行，可以使用 <code>head -n 10 filename</code> 命令。</p>
+</li>
+<li>
+<p><code>tail</code> 命令：与 <code>head</code> 命令相对，<code>tail</code> 命令常用于查看文件的最后几行内容，并且会持续刷新，适合实时观察程序的日志情况。例如，要查看名为&quot;filename&quot;的文件的最后10行，可使用 <code>tail -n 10 filename</code> 命令。</p>
+</li>
+</ol>
+<h3 id="什么是inode和block">什么是inode和block？<a hidden class="anchor" aria-hidden="true" href="#什么是inode和block">#</a></h3>
+<p>inode是索引节点，用来存储数据属性信息，包含了文件大小、属组、归属的用户组、读写权限、文件类型、修改时间等元信息，同时还具有指向文件实体的指针功能
+block是数据块，负责存储实际的数据内容，包括文件的实际文本信息等。</p>
+<h3 id="硬链接和软连接的区别">硬链接和软连接的区别<a hidden class="anchor" aria-hidden="true" href="#硬链接和软连接的区别">#</a></h3>
+<h3 id="介绍一下vim">介绍一下vim<a hidden class="anchor" aria-hidden="true" href="#介绍一下vim">#</a></h3>
+<h3 id="文件权限修改的命令格式是什么样的">文件权限修改的命令？格式是什么样的？<a hidden class="anchor" aria-hidden="true" href="#文件权限修改的命令格式是什么样的">#</a></h3>
+<p><code>chmod</code> 命令
+数字格式
+符号格式</p>
+<h3 id="怎么查看所有进程和指定进程">怎么查看所有进程和指定进程？<a hidden class="anchor" aria-hidden="true" href="#怎么查看所有进程和指定进程">#</a></h3>
+<p>查看所有进程：使用 <code>ps</code> 命令。基本语法是 <code>ps -ef</code>，其中 <code>-e</code> 选项表示显示所有进程，<code>-f</code> 选项表示显示完整格式的输出
+查看指定进程：可以使用 <code>ps</code> 命令结合进程ID（PID）来查看指定进程。基本语法是 <code>ps -p PID -ef</code>，其中 <code>-p PID</code> 选项表示只显示指定PID的进程
+<code>top</code>命令：可以实时地显示系统中各个进程的资源占用情况，包括CPU、内存等</p>
+<h3 id="终止进程的命令">终止进程的命令？<a hidden class="anchor" aria-hidden="true" href="#终止进程的命令">#</a></h3>
+<ol>
+<li><code>kill</code> 命令：可以向指定进程发送信号，从而终止进程  基本语法是 <code>kill [信号] 进程ID</code> 可以使用 <code>kill -9 进程ID</code> 来强制终止进程。</li>
+<li><code>pkill</code> 命令：可以根据进程名或进程所属的用户和组名来终止进程。基本语法是 <code>pkill [选项] 进程名</code> 可以使用 <code>pkill firefox</code> 来终止所有名为firefox的进程。</li>
+<li><code>killall</code> 命令：可以根据进程名来终止进程。基本语法是 <code>killall 进程名</code>。例如，你可以使用 <code>killall firefox</code> 来终止所有名为firefox的进程。</li>
+<li><code>sigterm</code> 命令：可以向指定进程发送SIGTERM信号，从而请求进程终止。基本语法是 <code>sigterm进程ID</code> 可以使用 <code>sigterm 12345</code> 来请求PID为12345的进程终止。</li>
+</ol>
+<h3 id="搜索文件的命令是什么可以加什么选项">搜索文件的命令是什么？可以加什么选项？<a hidden class="anchor" aria-hidden="true" href="#搜索文件的命令是什么可以加什么选项">#</a></h3>
+<p><code>find</code> 命令：用于查找文件，它可以根据文件名、inode号等进行搜索
+基本的语法是 <code>find [路径] [选项] [表达式]</code>
+<code>find /path -type f -iname filename</code> 会搜索指定路径下所有类型为普通文件并且文件名为filename的文件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>find /path -type f -iname filename
+</span></span><span style="display:flex;"><span>会搜索指定路径下所有类型为普通文件并且文件名为filename的文件。
+</span></span></code></pre></div><h3 id="查看磁盘使用空间的命令">查看磁盘使用空间的命令？<a hidden class="anchor" aria-hidden="true" href="#查看磁盘使用空间的命令">#</a></h3>
+<p>在Linux系统中，可以使用以下命令查看磁盘使用空间：</p>
+<ol>
+<li><code>df</code> 命令：可以显示文件系统的总容量、已用空间、可用空间和挂载点等信息。</li>
+<li><code>du</code> 命令：可以显示指定目录或文件的占用空间大小。</li>
+<li><code>lsblk</code> 命令：可以列出所有可用块设备的信息，包括磁盘、分区等。</li>
+<li><code>mount</code> 命令：可以显示当前系统已经挂载的文件系统列表。</li>
+<li><code>fdisk -l</code> 命令：可以列出所有可用的磁盘和分区信息。</li>
+</ol>
+<h3 id="查看ip地址和接口信息的命令">查看ip地址和接口信息的命令？<a hidden class="anchor" aria-hidden="true" href="#查看ip地址和接口信息的命令">#</a></h3>
+<p>查看IP地址：<code>ifconfig</code> 或 <code>ip addr</code>
+查看接口信息：<code>ifconfig</code> 或 <code>ip link</code></p>
+<h3 id="gcc编译分哪几个步骤">gcc编译分哪几个步骤？<a hidden class="anchor" aria-hidden="true" href="#gcc编译分哪几个步骤">#</a></h3>
+<p>GCC编译过程主要包含以下四个步骤：</p>
+<ol>
+<li>预处理：这一阶段将源文件中的预处理指令进行处理，比如包含其他文件的头文件或者定义宏等。经过处理后，会生成一个预编译文件</li>
+<li>编译：预编译之后，编译器将处理源代码，将其转换为汇编语言。这个阶段会生成对应的汇编代码。</li>
+<li>汇编：汇编器将上一步得到的汇编代码转换为二进制目标文件。每一个源文件会被转换成一个单独的目标文件（.O文件）</li>
+<li>链接：最后链接器将多个目标文件以及所需的库文件进行链接，生成最终可执行文件</li>
+</ol>
+<h3 id="动态链接库和静态链接库的区别">动态链接库和静态链接库的区别？<a hidden class="anchor" aria-hidden="true" href="#动态链接库和静态链接库的区别">#</a></h3>
+<h3 id="makefile的两个常用函数和三个自动变量">MakeFile的两个常用函数和三个自动变量<a hidden class="anchor" aria-hidden="true" href="#makefile的两个常用函数和三个自动变量">#</a></h3>
+<p>Makefile中的两个常用函数是 <code>addprefix</code> 和 <code>patsubst</code>，以及三个自动变量：<code>$(MAKEFILE_LIST)</code>、<code>$(wildcard)</code> 和 <code>$(foreach)</code>。</p>
+<ol>
+<li><code>addprefix</code> 函数用于给目标文件名添加前缀。语法：<code>$(addprefix prefix, target)</code>。例如：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#a6e22e">%.o</span><span style="color:#f92672">:</span> %.c
+</span></span><span style="display:flex;"><span>	gcc -c <span style="color:#66d9ef">$(</span>addprefix build/, $&lt;<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>这个规则表示将 <code>.c</code> 文件编译成 <code>.o</code> 文件，并使用 <code>build/</code> 作为前缀。</p>
+<ol start="2">
+<li><code>patsubst</code> 函数用于替换字符串中的匹配项。语法：<code>$(patsubst pattern, replacement, string)</code>。例如：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>OBJECTS <span style="color:#f92672">:=</span> main.o foo.o bar.o
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main.o</span><span style="color:#f92672">:</span> main.c
+</span></span><span style="display:flex;"><span>	gcc -c <span style="color:#66d9ef">$(</span>patsubst %.c, %.o, $&lt;<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>这个规则表示将 <code>main.c</code> 编译成 <code>main.o</code>，并将所有的 <code>.c</code> 替换为 <code>.o</code>。</p>
+<ol start="3">
+<li>自动变量：
+<ul>
+<li><code>$(MAKEFILE_LIST)</code>：包含当前Makefile的文件列表。</li>
+<li><code>$(wildcard)</code>：匹配指定模式的文件列表。</li>
+<li><code>$(foreach)</code>：遍历一个列表并对每个元素执行指定的命令。</li>
+</ul>
+</li>
+</ol>
+<h3 id="gdb有哪些指令">GDB有哪些指令？<a hidden class="anchor" aria-hidden="true" href="#gdb有哪些指令">#</a></h3>
+<p>GDB（GNU调试器）是一个功能强大的调试工具，它支持多种编程语言和处理器架构。以下是一些常用的GDB指令：</p>
+<ol>
+<li><code>break</code>：设置断点。例如<code>break main</code> 在main函数处设置断点</li>
+<li><code>run</code>：启动程序。例如<code>run</code> 运行当前被调试的程序</li>
+<li><code>next</code>：执行下一行代码，但不进入函数。例如<code>next</code> 执行下一行代码</li>
+<li><code>step</code>：执行下一行代码，如果遇到函数调用，则进入函数内部。例如<code>step</code> 执行下一行代码并进入函数</li>
+<li><code>continue</code>：继续执行程序，直到遇到下一个断点或程序结束。例如<code>continue</code> 继续执行程序</li>
+<li><code>print</code>：打印变量的值。例如<code>print x</code> 打印变量x的值</li>
+<li><code>watch</code>：监视表达式的值变化。例如<code>watch x</code> 监视变量x的值变化</li>
+<li><code>info locals</code>：显示当前作用域内的局部变量信息。例如<code>info locals</code> 显示当前作用域内的局部变量信息</li>
+<li><code>info args</code>：显示当前函数的参数信息。例如<code>info args</code> 显示当前函数参数信息</li>
+<li><code>backtrace</code>：显示当前的栈帧信息。例如<code>backtrace</code> 显示当前的栈帧信息。</li>
+<li><code>frame</code>：切换到指定的栈帧。例如<code>frame 2</code> 切换到第2个栈帧。</li>
+<li><code>list</code>：显示当前源文件的部分或全部代码。例如<code>list main.c:5-10</code> 显示main.c文件的第5行到第10行代码。</li>
+<li><code>source</code>：加载指定的源文件并执行。例如<code>source file.c</code> 加载file.c文件并执行。</li>
+<li><code>delete breakpoint</code>：删除指定的断点。例如：<code>delete 1</code> 删除编号为1的断点。</li>
+<li><code>help</code>：查看GDB的帮助文档。例如<code>help breakpoint</code> 查看关于断点的帮助文档</li>
+</ol>
+<h3 id="如何在linux系统中查看tcp状态">如何在Linux系统中查看TCP状态<a hidden class="anchor" aria-hidden="true" href="#如何在linux系统中查看tcp状态">#</a></h3>
+<p>TCP的连接状态查看，在Linux中可以用netstat  -napt查看
+![[Pasted image 20231226183740.png]]</p>
+<ul>
+<li>-a:列出所有端口</li>
+<li>-at:列出所有TCP端口</li>
+<li>-au:列出所有UDP端口</li>
+<li>-p:显示正在使用Socket的程序识别码和程序名称</li>
+<li>-n:显示IP地址和端口号的数字格式，不进行反向解析</li>
+</ul>
+<h3 id="top">top<a hidden class="anchor" aria-hidden="true" href="#top">#</a></h3>
+<p>在Linux系统中，top命令是常用的分析性能的工具，能够实时监控系统中各个进程资源占用的情况，类似于windows中任务管理器</p>
+<h3 id="echo">echo<a hidden class="anchor" aria-hidden="true" href="#echo">#</a></h3>
+<p>echo会将输入的字符串送往标准输出</p>
+<h3 id="ps">ps<a hidden class="anchor" aria-hidden="true" href="#ps">#</a></h3>
+
+
+        </div>
+        <div class="post-reward">
+            <div style="padding: 0 0 0 0; margin: 0 0 0 0; width: 100%; font-size:16px; text-align: center;">
+                <div id="QR" style="opacity: 0;">
+                    <div id="wechat" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="wechat_qr" src="https://littlestonemax.github.io/img/wechat_pay.png" alt="wechat_pay"></a>
+                        <p>微信</p>
+                    </div>
+                    <div id="alipay" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="alipay_qr" src="https://littlestonemax.github.io/img/alipay.png" alt="alipay"></a>
+                        <p>支付宝</p>
+                    </div>
+                </div>
+                <button id="rewardButton"
+                        onclick="
+                    var qr = document.getElementById('QR');
+                    if (qr.style.opacity === '0') {
+                        qr.style.opacity='1';
+                    } else {
+                        qr.style.opacity='0'
+                    }"
+                >
+                    <span>🧧 鼓励</span>
+                </button>
+            </div>
+        </div>
+
+        <footer class="post-footer">
+            
+<nav class="paginav">
+  <a class="next" href="https://littlestonemax.github.io/posts/tech/tech1/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>Redis scan命令学习</span>
+  </a>
+</nav>
+
+        </footer>
+    </div>
+
+<style>
+    .comments_details summary::marker {
+        font-size: 20px;
+        content: '👉展开评论';
+        color: var(--content);
+    }
+    .comments_details[open] summary::marker{
+        font-size: 20px;
+        content: '👇关闭评论';
+        color: var(--content);
+    }
+</style>
+
+
+<div>
+    <details class="comments_details">
+        <summary style="cursor: pointer; margin: 50px 0 20px 0;width: 130px;">
+            <span style="font-size: 20px;color: var(--content);">...</span>
+        </summary>
+        <div id="tcomment"></div>
+    </details>
+    <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js">
+    </script>
+    <script>
+        twikoo.init({
+            envId:  null ,
+        el: "#tcomment",
+            lang: 'zh-CN',
+            region:  null ,
+        path: window.TWIKOO_MAGIC_PATH||window.location.pathname,
+        })
+    </script>
+</div>
+</article>
+</main>
+
+<footer class="footer">
+    <span>
+        Copyright
+        &copy;
+        2020-2024
+        <a href="https://littlestonemax.github.io/" style="color:#939393;">Stone&#39;s Blog</a>
+        All Rights Reserved
+    </span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#939393;">填写自己的备案号</a>&nbsp;
+    <span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=null"
+           style="display:inline-block;text-decoration:none;height:20px;color:#939393;">
+            <img src="%e5%a1%ab%e8%87%aa%e5%b7%b1%e7%9a%84%e5%85%ac%e5%ae%89%e5%9b%be%e6%a0%87%e9%93%be%e6%8e%a5" style="float:left;margin: 0px 5px 0px 0px;"/>
+            填自己的公网安备
+        </a>
+    </span>
+    <span id="busuanzi_container">
+        <span class="fa fa-user"></span> <span id="busuanzi_value_site_uv"></span>
+        <span class="fa fa-eye"></span> <span id="busuanzi_value_site_pv"></span>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <span class="topInner">
+        <svg class="topSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z"/>
+        </svg>
+        <span id="read_progress"></span>
+    </span>
+</a>
+
+<script>
+    document.addEventListener('scroll', function (e) {
+        const readProgress = document.getElementById("read_progress");
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        readProgress.innerText = ((scrollTop / (scrollHeight - clientHeight)).toFixed(2) * 100).toFixed(0);
+    })
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+</script>
+<script>
+    let mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        (function() {
+            document.cookie = "change-themes" + "="+ escape ("false");
+        })()
+
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    });
+</script>
+
+<script>
+    document.body.addEventListener('copy', function (e) {
+        if (window.getSelection().toString() && window.getSelection().toString().length > 50) {
+            let clipboardData = e.clipboardData || window.clipboardData;
+            if (clipboardData) {
+                e.preventDefault();
+                let htmlData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                let textData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                clipboardData.setData('text/html', htmlData);
+                clipboardData.setData('text/plain', textData);
+            }
+        }
+    });
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = '复制';
+
+        function copyingDone() {
+            copybutton.innerText = '已复制！';
+            setTimeout(() => {
+                copybutton.innerText = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                let text = codeblock.textContent +
+                    '\r\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                navigator.clipboard.writeText(text);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) {}
+            selection.removeRange(range);
+        });
+
+        let language = codeblock.className.replaceAll("language-", "")
+        let macTool = document.createElement("div")
+        let macTool1 = document.createElement("div")
+        let macTool2 = document.createElement("div")
+        let macTool3 = document.createElement("div")
+        let languageType = document.createElement("div")
+        languageType.innerText = language
+        macTool.setAttribute('class', 'mac-tool')
+        macTool1.setAttribute('class', 'mac bb1')
+        macTool2.setAttribute('class', 'mac bb2')
+        macTool3.setAttribute('class', 'mac bb3')
+        languageType.setAttribute('class', 'language-type')
+        macTool.appendChild(macTool1)
+        macTool.appendChild(macTool2)
+        macTool.appendChild(macTool3)
+        macTool.appendChild(languageType)
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        }
+    });
+</script>
+</body>
+
+</html>

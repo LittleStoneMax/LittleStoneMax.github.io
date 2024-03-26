@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://littlestonemax.github.io/sitemap.xml
