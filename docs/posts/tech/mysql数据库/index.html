@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Mysql数据库 | Stone&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="数据库基础 char和varchar的区别 char varchar 最大长度255字符 最大长度是65535个字节 定长不足的部分用隐藏空格填充 varchar是不定长的 char会浪费时间 varchar会节省空间 char查找效率高 varchar查找效率低 插入时可省略尾部空格 varchar插入时不会省略，查找时">
+<meta name="author" content="LittleStoneMax">
+<link rel="canonical" href="https://littlestonemax.github.io/posts/tech/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="icon" type="image/png" sizes="16x16" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="icon" type="image/png" sizes="32x32" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="apple-touch-icon" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="mask-icon" href="https://littlestonemax.github.io/img/Q.gif">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://littlestonemax.github.io/posts/tech/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script defer src="https://unpkg.com/mermaid@8.8.1/dist/mermaid.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = ""; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<meta property="og:title" content="Mysql数据库" />
+<meta property="og:description" content="数据库基础 char和varchar的区别 char varchar 最大长度255字符 最大长度是65535个字节 定长不足的部分用隐藏空格填充 varchar是不定长的 char会浪费时间 varchar会节省空间 char查找效率高 varchar查找效率低 插入时可省略尾部空格 varchar插入时不会省略，查找时" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://littlestonemax.github.io/posts/tech/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-26T19:37:37+08:00" />
+<meta property="article:modified_time" content="2024-03-26T19:37:37+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mysql数据库"/>
+<meta name="twitter:description" content="数据库基础 char和varchar的区别 char varchar 最大长度255字符 最大长度是65535个字节 定长不足的部分用隐藏空格填充 varchar是不定长的 char会浪费时间 varchar会节省空间 char查找效率高 varchar查找效率低 插入时可省略尾部空格 varchar插入时不会省略，查找时"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+
+        {
+          "@type": "ListItem",
+          "position":  1 ,
+          "name": "📚文章",
+          "item": "https://littlestonemax.github.io/posts/"
+        },
+
+        {
+          "@type": "ListItem",
+          "position":  2 ,
+          "name": "👨🏻‍💻 技术",
+          "item": "https://littlestonemax.github.io/posts/tech/"
+        }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Mysql数据库",
+      "item": "https://littlestonemax.github.io/posts/tech/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mysql数据库",
+  "name": "Mysql数据库",
+  "description": "数据库基础 char和varchar的区别 char varchar 最大长度255字符 最大长度是65535个字节 定长不足的部分用隐藏空格填充 varchar是不定长的 char会浪费时间 varchar会节省空间 char查找效率高 varchar查找效率低 插入时可省略尾部空格 varchar插入时不会省略，查找时",
+  "keywords": [
+    ""
+  ],
+  "articleBody": "数据库基础 char和varchar的区别 char varchar 最大长度255字符 最大长度是65535个字节 定长不足的部分用隐藏空格填充 varchar是不定长的 char会浪费时间 varchar会节省空间 char查找效率高 varchar查找效率低 插入时可省略尾部空格 varchar插入时不会省略，查找时会省略 varchar(10) 和 varchar(20) 的区别 如果是存储相同长度的字符串，所占空间一样，如果涉及order by排序相关，后者消耗更多内存空间\ndrop、delete与truncate的区别 drop delete truncate 删除表结构和数据 删除表中数据 删除表中所有数据 DDL DML DDL 速度最快 最慢 其次 不可回滚 可回滚 不可回滚 UNION与UNION ALL的区别 UNION UNION ALL 将不同的记录返回到单个结果集中 将所有记录返回到单个结果集中 性能慢 性能快 消除重复行 不消除重复行 MySQL 的内连接、左连接、右连接有什么区别 内连接：根据连接条件从多个表中查询选择数据，显示这些表中与连接条件相匹配的行，组成新的记录 分为：等值连接（连接条件为相等判断）非等值连接（连接条件为不相等判断）自连接（在一个连接查询中，涉及的两个表都是同一张表的查询，相互连接的表在物理上为同一张表，在逻辑上分为两张表） 左外连接：left[outer] join 显示左表全部记录，右表满足连接条件的记录 右外连接：right[outer] join 显示右表全部记录，左表满足连接条件的记录\n常见的聚合函数有哪些使用聚合函数需要注意什么 avg 返回某列的平均值 sum 返回某列值的和 count 返回某列的行数 max 返回某列的最大值 min 返回某列的最小值 注意：聚合函数会自动忽略空值，不需要手动增加条件排除NULL 聚合函数不能作为where字句后的限制条件\n请说下你对 MySQL架构的了解 server层：连接器，查询缓存，分析器，优化器，执行器\n连接器：MYSQL基于TCP协议进行传输，连接过程需要经过TCP三次握手 存储引擎：InnoDB\n一条 SQL 语句在数据库框架中的执行流程 连接器：建立连接，管理连接、校验用户身份； 查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块； 解析 SQL，通过解析器对 SQL 查询语句进行词法分析、语法分析，然后构建语法树，方便后续模块读取表名、字段、语句类型； 执行 SQL：执行 SQL 共有三个阶段： 预处理阶段：检查表或字段是否存在；将 select * 中的 * 符号扩展为表上的所有列 优化阶段：基于查询成本的考虑， 选择查询成本最小的执行计划； 执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端； ![[Pasted image 20231224193353.png]]\n连接器：连接器连接客户端，MySQL基于TCP协议进行传输，所以要先经过TCP三次握手，连接完成建立后，判断用户密码，获取用户权限并保存，后续操作都基于连接时保存的权限进行权限逻辑的判断 查询缓存：MySQL收到SQL语句后，会解析出第一个字段，查看是什么类型的语句，如果是查询语句（select字段），MySQL会先去查询缓存（QueryCache）里查找缓存数据，查看之前是否有执行过这一条命令，查询缓存以key-value形式保存在内存中，key为SQL查询语句,value为SQL语句查询的结果，如果查询的语句命中缓存就会直接返回value给客户端，如果没命中就要继续执行，等执行完后查询的结果就会被存入查询缓存中，对于更新频繁的表，查询缓存的命中率很低，因为只要一个表有更新操作，那么这个表的查询缓存就会被清空，如果刚缓存了一个查询结果很大数据，还没被使用这个表就更新了，那查询缓存就被清空了，所以MySQL8.0将查询缓存删除了 解析器： 词法分析：MySQL根据出入的字符串识别出关键字 语法分析：根据词法分析的结果，语法解析器会根据语法规则判断SQL语句是否满足MySQL语法，语法不对就报错，如果没问题就构建出SQL语法树，这样方便后续获取SQL类型、表名、字段名、where条件等 执行SQL： 每条select语句流程主要分三个阶段 预处理阶段： 检查SQL查询语句中的表或字段是否存在 将select *中的*符号扩展为表上的所有列 优化阶段：优化器负责确定SQL查询语句的执行方案，当表中有多个索引时，优化器基于成本考虑决定使用哪个索引，在查询语句钱加explain命令，就会输出这条SQL语句的执行计划，其中的key就表示会使用哪个索引，若Key为null说明没有使用索引，会全表扫描，这种查询方式效率最低 执行阶段：MySQL的执行器开始执行语句，在执行过程中会与存储引擎交互，交互以记录为单位，有三种执行方式：主键索引引擎，全表扫描，索引下推 数据库的三范式是什么 第一范式：属性具有原子性不可再分解，对关系型数据库的基本要求，通过分字段实现 第二范式：唯一性和依赖性，每个表都有主键，其他字段依赖主键，通过分表实现 第三范式：直接依赖，只依赖于主键，通过分表实现\n什么是范式和反范式，以及各自优缺点 范式：规范化的设计数据库 优点：可以减少数据冗余 数据表更新快体积小 缺点：多表联合查询，导致性能降低更难进行索引优化 反范式：增加字段，允许冗余，以空间换时间 优点：可以减少表的关联可以更好地进行索引优化 缺点：存在数据冗余及数据维护异常 对数据的修改需要更多成本\nlimit 1000000,10加载很慢，怎么解决 检查业务需求是否合理 id自增时可以从id\u003e1000000开始查询 增加索引\n一条SQL查询语句的执行顺序 书写顺序：select distinct from join on where group by having order by limit 执行顺序：from join on where group by select distinct having order by limit\n存储过程和自定义函数 存储过程：一组预编译的SQL语句和流程控制语句，被命名并存储在数据库中。存储过 程可以用来封装复杂的数据库操作逻辑，并在需要时进行调用。\n1 2 3 4 5 6 7 8 9 10 #创建存储过程 create procedure 存储过程名() begin -- 存储过程的逻辑代码 -- 可以包含SQL语句、控制结构和变量操作等 end; #执行存储过程 call 存储过程名(); #删除存储过程 drop procedure [if exists] 存储过程名; 1 2 3 4 5 6 7 create procedure mypro() begin select * from emp; select * from dept; end; call mypro(); drop procedure if exists mypro; 1 2 3 4 5 6 7 8 9 //使用参数 create procedure 存储过程名( [in|out|inout] 参数名1 参数的数据类型, [in|out|inout] 参数名2 参数的数据类型, ) begin -- 存储过程的逻辑代码 -- 可以包含SQL语句、控制结构和变量操作等 end; 参数类型： in：输入参数，存储过程的输入值，从外部传递给存储过程，存储过程内部是只读的，不能修改它的值 out：输出参数，存储过程的返回值，存储过程可以修改它的值并将其返回 inout：输入和输出参数既可以作为输入值传递给存储过程，也可以由存储过程修改并返回 优点：\n代码复用：存储过程可以被多个应用程序或脚本调用，实现了代码的复用 提高性能：MySQL将编译后的存储过程放入缓存中，如果应用程序在单个连接中多次使用存储过程，直接使用编译版本 减少网络流量：存储过程可以一次执行多条SQL语句，减少了与数据库的交互次数 安全控制：存储过程可以对数据库中的数据进行严格的访问控制和权限管理 数据一致性：存储过程可以实现复杂的数据操作和事务处理，确保数据的一致性和完整性 缺点：\n创建和维护成本高：SQL是一种结构化查询语言，难以处理复杂的业务逻辑 开发调试复杂：需要通过特定的工具和技术进行，不方便调试 可移植性差：存储过程通常依赖于特定的数据库平台和版本，不同的数据库系统之间存储过程的语法和特性可能有差异，导致存储过程的可移植性差 自定义函数\n1 2 3 4 5 6 7 8 9 10 #创建函数 create function 函数名([参数1 数据类型 [, 参数2 数据类型, ...]]) returns 返回值类型 begin 函数逻辑代码 end; #调用函数 select 函数名([参数1, 参数2...]); #删除函数 drop function [if exists] 函数名; 游标 cursor,使用游标可以对存储过程或函数中的查询结果进行逐行处理 创建游标后，可以使用open语句打开游标，开始执行游标指定的查询语句并生成结果集。在游标打开得到结果集后，可以使用fetch语句访问它的每一行 游标处理完后，应关闭游标，释放游标使用的内存和资源\n1 2 3 4 5 6 7 8 #创建游标 declare 游标名 cursor for 查询语句; #打开游标 open 游标名; #读取游标数据到变量中 fetch 游标名 into 变量名1[,变量名2...]; #关闭游标 close 游标名; 触发器 trigger,在表的插入(insert) 、更新(update)、删除(delete)操作发生时自动执行MySQL语句 创建触发器时需要给出的信息：\n触发器名 在操作前还是操作后触发(before/after) 被什么操作触发(insert/update/delete) 关联的表 使用触发操作的数据： insert：可通过new访问被插入的行，before insert可以更新new中的值（允许更改被插入的值） delete：可通过old访问被删除的行,old中的值是只读的 update：old访问更新前的值，new访问更新后的值\n事务 如果一个业务操作中多次访问了数据库，必须保证每条SQL语句都执行成功；如果其中由一条执行失败，那么所有已经执行过的代码必须回滚（撤销），回到没有执行前的状态，称为事务。简单来说，就是要么所有的SQL语句全部执行成功，要么全部失败\n事务的四大特性 事务特性 含义 原子性 事务是工作的最小单元,整个工作单元要么全部执行成功，要么全部执行失败 一致性 事务执行前和执行后，数据库中数据应该保持相同状态（数据总量不变） 隔离性 事务与事务之间不能互相影响，必须保持隔离性 持久性 如果事务执行成功，对数据库的操作是持久的redolog 事务提交的方式 自动提交：MySQL就是自动提交的（一条DML(增删改)语句会自动提交一次事务） 手动提交：需要先开启事务，再提交（Oracle是默认手动提交的） 查看事务的默认提交方式：select@@autocommit；(1代表自动提交，默认值，0代表手动提交) 修改默认提交方式：set@@autocommit = 0；(1代表自动提交，0代表手动提交) 事务的隔离级别 在 SQL 标准中定义了四种隔离级别，每一种级别都规定了一个事务中所做的修改，哪些在事务内和事务间是可见的，哪些是不可见的。较低级别的隔离通常可以执行更高的并发，系统的开销也更低\n未提交读：事务中的修改，没有提交也能被其他事务看到，这个级别导致很多问题，性能也没好太多，很少使用 提交读：事务中的修改提交后才能被看到，也被称为不可重复，因为两次执行同样的查询，可能得到不同的结果 可重复读：同一事务中多次读取同样记录的结果是一致的，该级别无法解决幻读问题，该级别是MySQL的默认隔离级别，并且MySQL的默认隔离级别，并且MySQL在该级别就可以很大程度上避免幻读 可串行化(序列化)：强制事务串行执行，避免幻读问题，该级别会在读取的每一行数据上都加锁，可能导致大量的超时和锁争用的问题的，很少使用这个隔离级别，只有在非常需要确保数据一致性而且可以接受没有并发的情况下才考虑采用这个级别 1 2 3 4 5 #查看会话级的当前隔离级别：（会话级只对当前窗口有效） select @@tx_isolation; select @@session.tx_isolation; #查看全局级的当前隔离级别： select @@global.tx_isolation; 隔离级别 脏读 不可重复读 幻读 未提交读 Y Y Y 已提交读 X Y Y 可重复读 X X Y 可串行化 X X X 索引 哪些工作表需要创建索引 通常情况下，以下类型的工作表需要创建索引：\n数据量较大的表：数据量较大的表查询效率较低，需要创建索引来提高查询速度。 经常被查询的表：经常被查询的表需要创建索引来加速查询操作。 进行连接操作的表：进行连接操作的表需要创建索引来提高连接效率 索引的分类 分类方式 索引 数据结构 B+树索引、哈希索引、全文索引 物理存储 聚簇索引（主键索引）、二级索引（辅助索引） 字段特性 主键索引、唯一索引、普通索引、前缀索引 字段个数 索引的设计原则 为常作为查询条件的字段建立索引：如果某个字段经常用来做查询条件，那么该字段的查询速度会影响整个表的查询速度。因此，为这样的字段建立索引，可以提高整个表的查询速度 为经常需要排序、分组和联合操作的字段建立索引：经常需要 ORDER BY、GROUP BY、DISTINCT 和 UNION 等操作的字段，排序操作会浪费很多时间。如果为其建立索引，可以有效地避免排序操作 创建唯一性索引：唯一性索引的值是唯一的，可以更快的通过该索引来确定某条记录 限制索引的数目：每个索引都需要占⽤用磁盘空间，索引越多，需要的磁盘空间就越大，修改表时，对索引的重构和更新很麻烦。 小表不建议索引（如数量级在百万以内）：由于数据较小，查询花费的时间可能比遍历索引的时间还要短，索引可能不会产生优化效果 尽量使用前缀索引：如果索引的值很长，那么查询的速度会受到影响 删除不再使用或者很少使用的索引 聚簇索引 聚簇索引（一级索引），一种数据存储方式，将数据放在索引的叶子页，索引和数据在同一个 B+ 树上。因为无法同时把数据放在两个地方，所以一个表只有一个聚簇索引 在 InnoDB 中，这个索引是主键，如果没有定义主键，InnoDB 会选择一个唯一的非空索引代替，也没有的话 InnoDB 会隐式定义一个主键作为聚簇索引 优点： 可以把相关数据保存在一起 数据访问更快，索引和数据在同一个结构中 缺点： 插入速度严重依赖插入顺序 更新聚簇索引引列的代价高 插入数据或更新主键时可能面临‘页分裂’问题，当主键值要求将该行插入到某个已满的页中时，存储引擎会将该页分裂成两个页面放该行，会导致表占用更多的磁盘空间 非聚簇索引需要两次索引查找\n覆盖索引 也叫索引覆盖，查询所需要的数据都可以从索引中获取，而不用再去查询数据表中的实际数据，那么这个索引就是个覆盖索引 覆盖索引可以减少树的搜索次数，避免了回表，显著提升了查询性能\n1 2 create index ename_job on emp(ename,job); explain select ename,job from emp; 索引失效 查询条件包含or，or的前后不都是索引 使用like查询，%在前面且没有覆盖索引 对索引列使用函数 索引列使用运算 索引列使用不等于（\u003c\u003e ! = not in） 出现隐式类型转换，如字符型索引使用数字匹配 联合索引没有使用最左匹配 全表扫描比索引快（数据量少时） 最左前缀原则 创建多列的联合索引时，满足最左前缀原则，例如创建(a,b,c)三列的索引，实际上相当于创建了 a、(a, b)、(a,b,c)三个索引 当不需要考虑排序和分组时，将选择性最高的列放在前面。这时索引的作用只用于优化 where 条件的查找，这样设计可以最快过滤需要的行。\n1 2 3 4 create index ename_job_sal on emp(ename,job,sal); explain select * from emp where ename=\"smith\"; explain select * from emp where ename=\"smith\"and job=\"manager\"; explain select * from emp where job=\"manager\";//不符合 优化索引（使用策略） 使用前缀索引 使用前缀索引可以节约索引空间，提高索引效率，但需要平衡索引的选择性\n联合索引 使用联合索引可以避免回表，实现覆盖索引，可以减少大量I/O操作，创建联合索引时，不同的列顺序会影响索引的性能，通常将选择性高的列放在最前面\n合适的主键索引 最好选择不会修改的列作为主键，不考虑分库分表的情况下最好使用自增主键\n不建立重复或不使用的索引 防止索引失效 当我们使用左或者左右模糊匹配的时候，也就是 like %xx 或者 like %xx% 这两种方式都会造成索引失效； 当我们在查询条件中对索引列做了计算、函数、类型转换操作，这些情况下都会造成索引失效； 联合索引要能正确使用需要遵循最左匹配原则，也就是按照最左优先的方式进行索引的匹配，否则就会导致索引失效。 在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。 其他 InnoDB 和 MyISAM 的比较 事务:MylSAM不支持事务，InnoDB支持事务 全文索引: MylSAM支持全文索引，InnoDB 5.6之前不支持全文索引 关于count(): MylSAM会直接存储总行数，InnoDB则不会，需要按行扫描。意思就是对于select count(from table;如果数据量大，MylSAM会瞬间返回，而InnoDB则会一行行扫描 外键:MylSAM不支持外键，InnoDB支持外键 锁: MyISAM只支持表锁，InnoDB可以支持行锁。 怎么优化MySQL ![[Pasted image 20231218192406.png]]\nB树和B+树 平衡二叉树随着节点的增加，树的高度会越来越高，会增加磁盘的I/O次数，影响查询效率，从而引出了B树，B树不限制一个节点只能有2个子节点，从而降低树的高度。B树可以将节点的大小优化为磁盘块的大小，每次读取可以有效加载多个节点，B树常用于数据库库等需要高效访问磁盘的场景，B+树是对B树的升级，B+树只有叶子节点存数据，非叶子节点只存索引。叶子节点包含所有索引，叶子节点构成一个有序链表，范围查找更快，由于非叶子节点只存索引，B+树比B树的非叶子节点可以存更多索引，高度更低，磁盘I/O次数更少 ![[Pasted image 20231214192001.png]]\nB+树和跳表的区别 #待更新。。\n",
+  "wordCount" : "6570",
+  "inLanguage": "zh",
+  "datePublished": "2024-03-26T19:37:37+08:00",
+  "dateModified": "2024-03-26T19:37:37+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "LittleStoneMax"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://littlestonemax.github.io/posts/tech/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Stone's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://littlestonemax.github.io/img/Q.gif"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    (function () {
+        let  arr,reg = new RegExp("(^| )"+"change-themes"+"=([^;]*)(;|$)");
+        if(arr = document.cookie.match(reg)) {
+        } else {
+            if (new Date().getHours() >= 19 || new Date().getHours() < 6) {
+                document.body.classList.add('dark');
+                localStorage.setItem("pref-theme", 'dark');
+            } else {
+                document.body.classList.remove('dark');
+                localStorage.setItem("pref-theme", 'light');
+            }
+        }
+    })()
+
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://littlestonemax.github.io/" accesskey="h" title="Stone&#39;s Blog (Alt + H)">
+            <img src="https://littlestonemax.github.io/img/Q.gif" alt="logo" aria-label="logo"
+                 height="35">Stone&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://littlestonemax.github.io/search" title="🔍 搜索 (Alt &#43; /)" accesskey=/>
+                <span>🔍 搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/" title="🏠 主页">
+                <span>🏠 主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/posts" title="📚 文章">
+                <span>📚 文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/tags" title="🧩 标签">
+                <span>🧩 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/archives/" title="⏱️ 时间轴">
+                <span>⏱️ 时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/about" title="🙋🏻‍♂️ 关于">
+                <span>🙋🏻‍♂️ 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/links" title="🤝 友链">
+                <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main page">
+<style>
+    i[id*="post_meta_style"] {
+        display: flex;
+        align-items: center;
+        margin: 0 0 10px 0;
+    }
+</style>
+
+<article class="post-single">
+    <div id="single-content">
+        <header class="post-header">
+            <div class="breadcrumbs"><a href="https://littlestonemax.github.io/">🏠 主页</a>&nbsp;»&nbsp;<a href="https://littlestonemax.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://littlestonemax.github.io/posts/tech/">👨🏻‍💻 技术</a></div>
+            <h1 class="post-title">
+                Mysql数据库
+            </h1>
+            <div class="post-meta">
+
+<style>
+    i[id*="post_meta_style"] {
+        display: flex;
+        align-items: center;
+        margin: 0 0 10px 0;
+    }
+
+    .parent-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        opacity: 0.8;
+    }
+</style>
+
+<span class="parent-post-meta">
+    <span id="post_meta_style_1">
+        <span class="fa fa-calendar-check-o"></span>
+        <span>2024-03-26
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    <span id="post_meta_style_3">
+        <span class="fa fa-file-word-o"></span>
+        <span>6570字
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_4">
+        <span class="fa fa-clock-o"></span>
+        <span>14分钟
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_5">
+        <span class="fa fa-user-o"></span>
+        <span>LittleStoneMax
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_6">
+        <span class="fa fa-tags" style="opacity: 0.8"></span>
+        <span>
+            <span class="post-tags-meta">
+            </span>
+        </span>
+    </span>
+</span>
+<span style="opacity: 0.8;">
+                    <span id="post_meta_style_7">
+                        &nbsp;&nbsp;
+                        <span class="fa fa-eye" ></span>
+                        <span>
+                            <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+                            &nbsp;&nbsp;
+                        </span>
+                    </span>
+                    <span id="post_meta_style_8">
+                        <span class="fa fa-commenting-o"></span>
+                        <span>
+                            <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js"></script>
+                            <script>
+                                let url = document.documentURI
+                                
+                                let dnsUrl = "https://littlestonemax.github.io/"
+                                let urlSplit = url.split(dnsUrl)
+                                let finalUrl = urlSplit[1]
+                                if (finalUrl[0] !== '/') {
+                                    finalUrl = '/'+finalUrl
+                                }
+                                twikoo.getCommentsCount({
+                                    envId:  null , 
+                                region:  null , 
+                                urls: [ 
+                                    
+                                    finalUrl,
+                                ],
+                                    includeReply: false 
+                                }).then(function (res) {
+                                    let count = res[0].count
+                                    const obj = document.getElementById("comment_count");
+                                    obj.innerText = count
+                                    
+                                    
+                                    
+                                }).catch(function (err) {
+                                    
+                                    console.error(err);
+                                });
+                            </script>
+                            <span id="comment_count"></span>
+                        </span>
+                    </span>
+                </span>
+
+</div>
+        </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e5%9f%ba%e7%a1%80" aria-label="数据库基础"><strong>数据库基础</strong></a><ul>
+                        
+                <li>
+                    <a href="#char%e5%92%8cvarchar%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="char和varchar的区别"><strong>char和varchar的区别</strong></a></li>
+                <li>
+                    <a href="#varchar10-%e5%92%8c-varchar20-%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="varchar(10) 和 varchar(20) 的区别"><strong>varchar(10) 和 varchar(20) 的区别</strong></a></li>
+                <li>
+                    <a href="#dropdelete%e4%b8%8etruncate%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="drop、delete与truncate的区别"><strong>drop、delete与truncate的区别</strong></a></li>
+                <li>
+                    <a href="#union%e4%b8%8eunion-all%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="UNION与UNION ALL的区别"><strong>UNION与UNION ALL的区别</strong></a></li>
+                <li>
+                    <a href="#mysql-%e7%9a%84%e5%86%85%e8%bf%9e%e6%8e%a5%e5%b7%a6%e8%bf%9e%e6%8e%a5%e5%8f%b3%e8%bf%9e%e6%8e%a5%e6%9c%89%e4%bb%80%e4%b9%88%e5%8c%ba%e5%88%ab" aria-label="MySQL 的内连接、左连接、右连接有什么区别"><strong>MySQL 的内连接、左连接、右连接有什么区别</strong></a></li>
+                <li>
+                    <a href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e8%81%9a%e5%90%88%e5%87%bd%e6%95%b0%e6%9c%89%e5%93%aa%e4%ba%9b%e4%bd%bf%e7%94%a8%e8%81%9a%e5%90%88%e5%87%bd%e6%95%b0%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e4%bb%80%e4%b9%88" aria-label="常见的聚合函数有哪些使用聚合函数需要注意什么"><strong>常见的聚合函数有哪些使用聚合函数需要注意什么</strong></a></li>
+                <li>
+                    <a href="#%e8%af%b7%e8%af%b4%e4%b8%8b%e4%bd%a0%e5%af%b9-mysql%e6%9e%b6%e6%9e%84%e7%9a%84%e4%ba%86%e8%a7%a3" aria-label="请说下你对 MySQL架构的了解"><strong>请说下你对 MySQL架构的了解</strong></a></li>
+                <li>
+                    <a href="#%e4%b8%80%e6%9d%a1-sql-%e8%af%ad%e5%8f%a5%e5%9c%a8%e6%95%b0%e6%8d%ae%e5%ba%93%e6%a1%86%e6%9e%b6%e4%b8%ad%e7%9a%84%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b" aria-label="一条 SQL 语句在数据库框架中的执行流程"><strong>一条 SQL 语句在数据库框架中的执行流程</strong></a></li>
+                <li>
+                    <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e7%9a%84%e4%b8%89%e8%8c%83%e5%bc%8f%e6%98%af%e4%bb%80%e4%b9%88" aria-label="数据库的三范式是什么"><strong>数据库的三范式是什么</strong></a></li>
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e8%8c%83%e5%bc%8f%e5%92%8c%e5%8f%8d%e8%8c%83%e5%bc%8f%e4%bb%a5%e5%8f%8a%e5%90%84%e8%87%aa%e4%bc%98%e7%bc%ba%e7%82%b9" aria-label="什么是范式和反范式，以及各自优缺点"><strong>什么是范式和反范式，以及各自优缺点</strong></a></li>
+                <li>
+                    <a href="#limit-100000010%e5%8a%a0%e8%bd%bd%e5%be%88%e6%85%a2%e6%80%8e%e4%b9%88%e8%a7%a3%e5%86%b3" aria-label="limit 1000000,10加载很慢，怎么解决"><strong>limit 1000000,10加载很慢，怎么解决</strong></a></li>
+                <li>
+                    <a href="#%e4%b8%80%e6%9d%a1sql%e6%9f%a5%e8%af%a2%e8%af%ad%e5%8f%a5%e7%9a%84%e6%89%a7%e8%a1%8c%e9%a1%ba%e5%ba%8f" aria-label="一条SQL查询语句的执行顺序"><strong>一条SQL查询语句的执行顺序</strong></a></li>
+                <li>
+                    <a href="#%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b%e5%92%8c%e8%87%aa%e5%ae%9a%e4%b9%89%e5%87%bd%e6%95%b0" aria-label="存储过程和自定义函数"><strong>存储过程和自定义函数</strong></a></li>
+                <li>
+                    <a href="#%e6%b8%b8%e6%a0%87" aria-label="游标"><strong>游标</strong></a></li>
+                <li>
+                    <a href="#%e8%a7%a6%e5%8f%91%e5%99%a8" aria-label="触发器"><strong>触发器</strong></a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%ba%8b%e5%8a%a1" aria-label="事务"><strong>事务</strong></a><ul>
+                        
+                <li>
+                    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e5%9b%9b%e5%a4%a7%e7%89%b9%e6%80%a7" aria-label="事务的四大特性"><strong>事务的四大特性</strong></a></li>
+                <li>
+                    <a href="#%e4%ba%8b%e5%8a%a1%e6%8f%90%e4%ba%a4%e7%9a%84%e6%96%b9%e5%bc%8f" aria-label="事务提交的方式"><strong>事务提交的方式</strong></a></li>
+                <li>
+                    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" aria-label="事务的隔离级别"><strong>事务的隔离级别</strong></a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95" aria-label="索引"><strong>索引</strong></a><ul>
+                        
+                <li>
+                    <a href="#%e5%93%aa%e4%ba%9b%e5%b7%a5%e4%bd%9c%e8%a1%a8%e9%9c%80%e8%a6%81%e5%88%9b%e5%bb%ba%e7%b4%a2%e5%bc%95" aria-label="哪些工作表需要创建索引">哪些工作表需要创建索引</a></li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e7%9a%84%e5%88%86%e7%b1%bb" aria-label="索引的分类"><strong>索引的分类</strong></a></li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e7%9a%84%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99" aria-label="索引的设计原则"><strong>索引的设计原则</strong></a></li>
+                <li>
+                    <a href="#%e8%81%9a%e7%b0%87%e7%b4%a2%e5%bc%95" aria-label="聚簇索引"><strong>聚簇索引</strong></a></li>
+                <li>
+                    <a href="#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95" aria-label="覆盖索引"><strong>覆盖索引</strong></a></li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e5%a4%b1%e6%95%88" aria-label="索引失效"><strong>索引失效</strong></a></li>
+                <li>
+                    <a href="#%e6%9c%80%e5%b7%a6%e5%89%8d%e7%bc%80%e5%8e%9f%e5%88%99" aria-label="最左前缀原则"><strong>最左前缀原则</strong></a></li>
+                <li>
+                    <a href="#%e4%bc%98%e5%8c%96%e7%b4%a2%e5%bc%95%e4%bd%bf%e7%94%a8%e7%ad%96%e7%95%a5" aria-label="优化索引（使用策略）"><strong>优化索引（使用策略）</strong></a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%bf%e7%94%a8%e5%89%8d%e7%bc%80%e7%b4%a2%e5%bc%95" aria-label="使用前缀索引">使用前缀索引</a></li>
+                <li>
+                    <a href="#%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95" aria-label="联合索引">联合索引</a></li>
+                <li>
+                    <a href="#%e5%90%88%e9%80%82%e7%9a%84%e4%b8%bb%e9%94%ae%e7%b4%a2%e5%bc%95" aria-label="合适的主键索引">合适的主键索引</a></li>
+                <li>
+                    <a href="#%e4%b8%8d%e5%bb%ba%e7%ab%8b%e9%87%8d%e5%a4%8d%e6%88%96%e4%b8%8d%e4%bd%bf%e7%94%a8%e7%9a%84%e7%b4%a2%e5%bc%95" aria-label="不建立重复或不使用的索引">不建立重复或不使用的索引</a></li>
+                <li>
+                    <a href="#%e9%98%b2%e6%ad%a2%e7%b4%a2%e5%bc%95%e5%a4%b1%e6%95%88" aria-label="防止索引失效">防止索引失效</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%85%b6%e4%bb%96" aria-label="其他"><strong>其他</strong></a><ul>
+                        
+                <li>
+                    <a href="#innodb-%e5%92%8c-myisam-%e7%9a%84%e6%af%94%e8%be%83" aria-label="InnoDB 和 MyISAM 的比较"><strong>InnoDB 和 MyISAM 的比较</strong></a></li>
+                <li>
+                    <a href="#%e6%80%8e%e4%b9%88%e4%bc%98%e5%8c%96mysql" aria-label="怎么优化MySQL"><strong>怎么优化MySQL</strong></a></li>
+                <li>
+                    <a href="#b%e6%a0%91%e5%92%8cb%e6%a0%91" aria-label="B树和B&#43;树"><strong>B树和B+树</strong></a></li>
+                <li>
+                    <a href="#b%e6%a0%91%e5%92%8c%e8%b7%b3%e8%a1%a8%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="B&#43;树和跳表的区别">B+树和跳表的区别</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        if (elements) {
+            activeElement = Array.from(elements).find((element) => {
+                if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                    (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                    return element;
+                }
+            }) || activeElement
+
+            elements.forEach(element => {
+                const id = encodeURI(element.getAttribute('id')).toLowerCase();
+                if (element === activeElement){
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+                } else {
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+                }
+            })
+        }
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+        <div class="post-content"><h2 id="数据库基础"><strong>数据库基础</strong><a hidden class="anchor" aria-hidden="true" href="#数据库基础">#</a></h2>
+<h3 id="char和varchar的区别"><strong>char和varchar的区别</strong><a hidden class="anchor" aria-hidden="true" href="#char和varchar的区别">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>char</th>
+<th>varchar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最大长度255字符</td>
+<td>最大长度是65535个字节</td>
+</tr>
+<tr>
+<td>定长不足的部分用隐藏空格填充</td>
+<td>varchar是不定长的</td>
+</tr>
+<tr>
+<td>char会浪费时间</td>
+<td>varchar会节省空间</td>
+</tr>
+<tr>
+<td>char查找效率高</td>
+<td>varchar查找效率低</td>
+</tr>
+<tr>
+<td>插入时可省略尾部空格</td>
+<td>varchar插入时不会省略，查找时会省略</td>
+</tr>
+</tbody>
+</table>
+<h3 id="varchar10-和-varchar20-的区别"><strong>varchar(10) 和 varchar(20) 的区别</strong><a hidden class="anchor" aria-hidden="true" href="#varchar10-和-varchar20-的区别">#</a></h3>
+<p>如果是存储相同长度的字符串，所占空间一样，如果涉及order by排序相关，后者消耗更多内存空间</p>
+<h3 id="dropdelete与truncate的区别"><strong>drop、delete与truncate的区别</strong><a hidden class="anchor" aria-hidden="true" href="#dropdelete与truncate的区别">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>drop</th>
+<th>delete</th>
+<th>truncate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>删除表结构和数据</td>
+<td>删除表中数据</td>
+<td>删除表中所有数据</td>
+</tr>
+<tr>
+<td>DDL</td>
+<td>DML</td>
+<td>DDL</td>
+</tr>
+<tr>
+<td>速度最快</td>
+<td>最慢</td>
+<td>其次</td>
+</tr>
+<tr>
+<td>不可回滚</td>
+<td>可回滚</td>
+<td>不可回滚</td>
+</tr>
+</tbody>
+</table>
+<h3 id="union与union-all的区别"><strong>UNION与UNION ALL的区别</strong><a hidden class="anchor" aria-hidden="true" href="#union与union-all的区别">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>UNION</th>
+<th>UNION ALL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>将不同的记录返回到单个结果集中</td>
+<td>将所有记录返回到单个结果集中</td>
+</tr>
+<tr>
+<td>性能慢</td>
+<td>性能快</td>
+</tr>
+<tr>
+<td>消除重复行</td>
+<td>不消除重复行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mysql-的内连接左连接右连接有什么区别"><strong>MySQL 的内连接、左连接、右连接有什么区别</strong><a hidden class="anchor" aria-hidden="true" href="#mysql-的内连接左连接右连接有什么区别">#</a></h3>
+<p><strong>内连接</strong>：根据连接条件从多个表中查询选择数据，显示这些表中与连接条件相匹配的行，组成新的记录
+分为：等值连接（连接条件为相等判断）非等值连接（连接条件为不相等判断）自连接（在一个连接查询中，涉及的两个表都是同一张表的查询，相互连接的表在物理上为同一张表，在逻辑上分为两张表）
+<strong>左外连接</strong>：left[outer] join 显示左表全部记录，右表满足连接条件的记录
+<strong>右外连接</strong>：right[outer] join 显示右表全部记录，左表满足连接条件的记录</p>
+<h3 id="常见的聚合函数有哪些使用聚合函数需要注意什么"><strong>常见的聚合函数有哪些使用聚合函数需要注意什么</strong><a hidden class="anchor" aria-hidden="true" href="#常见的聚合函数有哪些使用聚合函数需要注意什么">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>avg</th>
+<th>返回某列的平均值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sum</td>
+<td>返回某列值的和</td>
+</tr>
+<tr>
+<td>count</td>
+<td>返回某列的行数</td>
+</tr>
+<tr>
+<td>max</td>
+<td>返回某列的最大值</td>
+</tr>
+<tr>
+<td>min</td>
+<td>返回某列的最小值</td>
+</tr>
+</tbody>
+</table>
+<p>注意：聚合函数会自动忽略空值，不需要手动增加条件排除NULL
+聚合函数不能作为where字句后的限制条件</p>
+<h3 id="请说下你对-mysql架构的了解"><strong>请说下你对 MySQL架构的了解</strong><a hidden class="anchor" aria-hidden="true" href="#请说下你对-mysql架构的了解">#</a></h3>
+<p>server层：连接器，查询缓存，分析器，优化器，执行器</p>
+<p>连接器：MYSQL基于TCP协议进行传输，连接过程需要经过TCP三次握手
+存储引擎：InnoDB</p>
+<h3 id="一条-sql-语句在数据库框架中的执行流程"><strong>一条 SQL 语句在数据库框架中的执行流程</strong><a hidden class="anchor" aria-hidden="true" href="#一条-sql-语句在数据库框架中的执行流程">#</a></h3>
+<ol>
+<li>连接器：建立连接，管理连接、校验用户身份；</li>
+<li>查询缓存：查询语句如果命中查询缓存则直接返回，否则继续往下执行。MySQL 8.0 已删除该模块；</li>
+<li>解析 SQL，通过解析器对 SQL 查询语句进行词法分析、语法分析，然后构建语法树，方便后续模块读取表名、字段、语句类型；</li>
+<li>执行 SQL：执行 SQL 共有三个阶段：
+<ul>
+<li>预处理阶段：检查表或字段是否存在；将 <code>select *</code> 中的 <code>*</code> 符号扩展为表上的所有列</li>
+<li>优化阶段：基于查询成本的考虑， 选择查询成本最小的执行计划；</li>
+<li>执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端；</li>
+</ul>
+</li>
+</ol>
+<p>![[Pasted image 20231224193353.png]]</p>
+<ol>
+<li><strong>连接器</strong>：连接器连接客户端，MySQL基于TCP协议进行传输，所以要先经过TCP三次握手，连接完成建立后，判断用户密码，获取用户权限并保存，后续操作都基于连接时保存的权限进行权限逻辑的判断</li>
+<li><strong>查询缓存</strong>：MySQL收到SQL语句后，会解析出第一个字段，查看是什么类型的语句，如果是查询语句（select字段），MySQL会先去查询缓存（QueryCache）里查找缓存数据，查看之前是否有执行过这一条命令，查询缓存以key-value形式保存在内存中，key为SQL查询语句,value为SQL语句查询的结果，如果查询的语句命中缓存就会直接返回value给客户端，如果没命中就要继续执行，等执行完后查询的结果就会被存入查询缓存中，对于更新频繁的表，查询缓存的命中率很低，因为只要一个表有更新操作，那么这个表的查询缓存就会被清空，如果刚缓存了一个查询结果很大数据，还没被使用这个表就更新了，那查询缓存就被清空了，所以MySQL8.0将查询缓存删除了</li>
+<li><strong>解析器</strong>：
+<ol>
+<li>词法分析：MySQL根据出入的字符串识别出关键字</li>
+<li>语法分析：根据词法分析的结果，语法解析器会根据语法规则判断SQL语句是否满足MySQL语法，语法不对就报错，如果没问题就构建出SQL语法树，这样方便后续获取SQL类型、表名、字段名、where条件等</li>
+</ol>
+</li>
+<li><strong>执行SQL</strong>：
+每条select语句流程主要分三个阶段
+<ol>
+<li>预处理阶段：
+<ul>
+<li>检查SQL查询语句中的表或字段是否存在</li>
+<li>将select *中的*符号扩展为表上的所有列</li>
+</ul>
+</li>
+<li>优化阶段：优化器负责确定SQL查询语句的执行方案，当表中有多个索引时，优化器基于成本考虑决定使用哪个索引，在查询语句钱加explain命令，就会输出这条SQL语句的执行计划，其中的key就表示会使用哪个索引，若Key为null说明没有使用索引，会全表扫描，这种查询方式效率最低</li>
+<li>执行阶段：MySQL的执行器开始执行语句，在执行过程中会与存储引擎交互，交互以记录为单位，有三种执行方式：主键索引引擎，全表扫描，索引下推</li>
+</ol>
+</li>
+</ol>
+<h3 id="数据库的三范式是什么"><strong>数据库的三范式是什么</strong><a hidden class="anchor" aria-hidden="true" href="#数据库的三范式是什么">#</a></h3>
+<p>第一范式：属性具有原子性不可再分解，对关系型数据库的基本要求，通过分字段实现
+第二范式：唯一性和依赖性，每个表都有主键，其他字段依赖主键，通过分表实现
+第三范式：直接依赖，只依赖于主键，通过分表实现</p>
+<h3 id="什么是范式和反范式以及各自优缺点"><strong>什么是范式和反范式，以及各自优缺点</strong><a hidden class="anchor" aria-hidden="true" href="#什么是范式和反范式以及各自优缺点">#</a></h3>
+<p>范式：规范化的设计数据库
+优点：可以减少数据冗余  数据表更新快体积小
+缺点：多表联合查询，导致性能降低更难进行索引优化
+反范式：增加字段，允许冗余，以空间换时间
+优点：可以减少表的关联可以更好地进行索引优化
+缺点：存在数据冗余及数据维护异常  对数据的修改需要更多成本</p>
+<h3 id="limit-100000010加载很慢怎么解决"><strong>limit 1000000,10加载很慢，怎么解决</strong><a hidden class="anchor" aria-hidden="true" href="#limit-100000010加载很慢怎么解决">#</a></h3>
+<p>检查业务需求是否合理
+id自增时可以从id&gt;1000000开始查询
+增加索引</p>
+<h3 id="一条sql查询语句的执行顺序"><strong>一条SQL查询语句的执行顺序</strong><a hidden class="anchor" aria-hidden="true" href="#一条sql查询语句的执行顺序">#</a></h3>
+<p>书写顺序：select distinct from join on where group by having order by limit
+执行顺序：from join on where group by select distinct having order by limit</p>
+<h3 id="存储过程和自定义函数"><strong>存储过程和自定义函数</strong><a hidden class="anchor" aria-hidden="true" href="#存储过程和自定义函数">#</a></h3>
+<p>存储过程：一组预编译的SQL语句和流程控制语句，被命名并存储在数据库中。存储过
+程可以用来封装复杂的数据库操作逻辑，并在需要时进行调用。</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">创建存储过程</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">procedure</span> <span style="color:#960050;background-color:#1e0010">存储过程名</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 存储过程的逻辑代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- 可以包含SQL语句、控制结构和变量操作等
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">end</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">执行存储过程</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">call</span> <span style="color:#960050;background-color:#1e0010">存储过程名</span>();
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除存储过程</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> [<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span>] <span style="color:#960050;background-color:#1e0010">存储过程名</span>;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">procedure</span> mypro()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> emp;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dept;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">call</span> mypro();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">procedure</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span> mypro;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">使用参数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">procedure</span> <span style="color:#960050;background-color:#1e0010">存储过程名</span>(
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">in</span><span style="color:#f92672">|</span><span style="color:#66d9ef">out</span><span style="color:#f92672">|</span><span style="color:#66d9ef">inout</span>] <span style="color:#960050;background-color:#1e0010">参数名</span><span style="color:#ae81ff">1</span> <span style="color:#960050;background-color:#1e0010">参数的数据类型</span>,
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">in</span><span style="color:#f92672">|</span><span style="color:#66d9ef">out</span><span style="color:#f92672">|</span><span style="color:#66d9ef">inout</span>] <span style="color:#960050;background-color:#1e0010">参数名</span><span style="color:#ae81ff">2</span> <span style="color:#960050;background-color:#1e0010">参数的数据类型</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 存储过程的逻辑代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- 可以包含SQL语句、控制结构和变量操作等
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">end</span>;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参数类型：
+in：输入参数，存储过程的输入值，从外部传递给存储过程，存储过程内部是只读的，不能修改它的值
+out：输出参数，存储过程的返回值，存储过程可以修改它的值并将其返回
+inout：输入和输出参数既可以作为输入值传递给存储过程，也可以由存储过程修改并返回
+优点：</p>
+<ul>
+<li>代码复用：存储过程可以被多个应用程序或脚本调用，实现了代码的复用</li>
+<li>提高性能：MySQL将编译后的存储过程放入缓存中，如果应用程序在单个连接中多次使用存储过程，直接使用编译版本</li>
+<li>减少网络流量：存储过程可以一次执行多条SQL语句，减少了与数据库的交互次数</li>
+<li>安全控制：存储过程可以对数据库中的数据进行严格的访问控制和权限管理</li>
+<li>数据一致性：存储过程可以实现复杂的数据操作和事务处理，确保数据的一致性和完整性</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>创建和维护成本高：SQL是一种结构化查询语言，难以处理复杂的业务逻辑</li>
+<li>开发调试复杂：需要通过特定的工具和技术进行，不方便调试</li>
+<li>可移植性差：存储过程通常依赖于特定的数据库平台和版本，不同的数据库系统之间存储过程的语法和特性可能有差异，导致存储过程的可移植性差</li>
+</ul>
+<p>自定义函数</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">创建函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">function</span> <span style="color:#960050;background-color:#1e0010">函数名</span>([<span style="color:#960050;background-color:#1e0010">参数</span><span style="color:#ae81ff">1</span> <span style="color:#960050;background-color:#1e0010">数据类型</span> [, <span style="color:#960050;background-color:#1e0010">参数</span><span style="color:#ae81ff">2</span> <span style="color:#960050;background-color:#1e0010">数据类型</span>, ...]])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">returns</span> <span style="color:#960050;background-color:#1e0010">返回值类型</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">函数逻辑代码</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">调用函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#960050;background-color:#1e0010">函数名</span>([<span style="color:#960050;background-color:#1e0010">参数</span><span style="color:#ae81ff">1</span>, <span style="color:#960050;background-color:#1e0010">参数</span><span style="color:#ae81ff">2</span>...]);
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">删除函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">drop</span> <span style="color:#66d9ef">function</span> [<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">exists</span>] <span style="color:#960050;background-color:#1e0010">函数名</span>;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="游标"><strong>游标</strong><a hidden class="anchor" aria-hidden="true" href="#游标">#</a></h3>
+<p>cursor,使用游标可以对存储过程或函数中的查询结果进行逐行处理
+创建游标后，可以使用open语句打开游标，开始执行游标指定的查询语句并生成结果集。在游标打开得到结果集后，可以使用fetch语句访问它的每一行
+游标处理完后，应关闭游标，释放游标使用的内存和资源</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">创建游标</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#960050;background-color:#1e0010">游标名</span> <span style="color:#66d9ef">cursor</span> <span style="color:#66d9ef">for</span> <span style="color:#960050;background-color:#1e0010">查询语句</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">打开游标</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">open</span> <span style="color:#960050;background-color:#1e0010">游标名</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">读取游标数据到变量中</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fetch</span> <span style="color:#960050;background-color:#1e0010">游标名</span> <span style="color:#66d9ef">into</span> <span style="color:#960050;background-color:#1e0010">变量名</span><span style="color:#ae81ff">1</span>[,<span style="color:#960050;background-color:#1e0010">变量名</span><span style="color:#ae81ff">2</span>...];
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">关闭游标</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">close</span> <span style="color:#960050;background-color:#1e0010">游标名</span>;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="触发器"><strong>触发器</strong><a hidden class="anchor" aria-hidden="true" href="#触发器">#</a></h3>
+<p>trigger,在表的插入(insert) 、更新(update)、删除(delete)操作发生时自动执行MySQL语句
+创建触发器时需要给出的信息：</p>
+<ul>
+<li>触发器名</li>
+<li>在操作前还是操作后触发(before/after)</li>
+<li>被什么操作触发(insert/update/delete)</li>
+<li>关联的表</li>
+</ul>
+<p>使用触发操作的数据：
+insert：可通过new访问被插入的行，before insert可以更新new中的值（允许更改被插入的值）
+delete：可通过old访问被删除的行,old中的值是只读的
+update：old访问更新前的值，new访问更新后的值</p>
+<h2 id="事务"><strong>事务</strong><a hidden class="anchor" aria-hidden="true" href="#事务">#</a></h2>
+<p>如果一个业务操作中多次访问了数据库，必须保证每条SQL语句都执行成功；如果其中由一条执行失败，那么所有已经执行过的代码必须回滚（撤销），回到没有执行前的状态，称为事务。简单来说，就是要么所有的SQL语句全部执行成功，要么全部失败</p>
+<h3 id="事务的四大特性"><strong>事务的四大特性</strong><a hidden class="anchor" aria-hidden="true" href="#事务的四大特性">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">事务特性</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">原子性</td>
+<td style="text-align:center">事务是工作的最小单元,整个工作单元要么全部执行成功，要么全部执行失败</td>
+</tr>
+<tr>
+<td style="text-align:center">一致性</td>
+<td style="text-align:center">事务执行前和执行后，数据库中数据应该保持相同状态（数据总量不变）</td>
+</tr>
+<tr>
+<td style="text-align:center">隔离性</td>
+<td style="text-align:center">事务与事务之间不能互相影响，必须保持隔离性</td>
+</tr>
+<tr>
+<td style="text-align:center">持久性</td>
+<td style="text-align:center">如果事务执行成功，对数据库的操作是持久的redolog</td>
+</tr>
+</tbody>
+</table>
+<h3 id="事务提交的方式"><strong>事务提交的方式</strong><a hidden class="anchor" aria-hidden="true" href="#事务提交的方式">#</a></h3>
+<ul>
+<li>自动提交：MySQL就是自动提交的（一条DML(增删改)语句会自动提交一次事务）</li>
+<li>手动提交：需要先开启事务，再提交（Oracle是默认手动提交的）</li>
+<li>查看事务的默认提交方式：select@@autocommit；(1代表自动提交，默认值，0代表手动提交)</li>
+<li>修改默认提交方式：set@@autocommit = 0；(1代表自动提交，0代表手动提交)</li>
+</ul>
+<h3 id="事务的隔离级别"><strong>事务的隔离级别</strong><a hidden class="anchor" aria-hidden="true" href="#事务的隔离级别">#</a></h3>
+<p>在 SQL 标准中定义了四种隔离级别，每一种级别都规定了一个事务中所做的修改，哪些在事务内和事务间是可见的，哪些是不可见的。<strong>较低级别的隔离通常可以执行更高的并发，系统的开销也更低</strong></p>
+<ul>
+<li><strong>未提交读</strong>：事务中的修改，没有提交也能被其他事务看到，这个级别导致很多问题，性能也没好太多，很少使用</li>
+<li><strong>提交读</strong>：事务中的修改提交后才能被看到，也被称为不可重复，因为两次执行同样的查询，可能得到不同的结果</li>
+<li><strong>可重复读</strong>：同一事务中多次读取同样记录的结果是一致的，该级别无法解决幻读问题，该级别是MySQL的默认隔离级别，并且<strong>MySQL的默认隔离级别</strong>，并且MySQL在该级别就可以很大程度上避免幻读</li>
+<li><strong>可串行化(序列化)</strong>：强制事务串行执行，避免幻读问题，该级别会在读取的每一行数据上都加锁，可能导致大量的超时和锁争用的问题的，很少使用这个隔离级别，只有在非常需要确保数据一致性而且可以接受没有并发的情况下才考虑采用这个级别</li>
+</ul>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Sql" data-lang="Sql"><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看会话级的当前隔离级别：（会话级只对当前窗口有效）</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span>  <span style="color:#f92672">@@</span>tx_isolation;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">@@</span><span style="color:#66d9ef">session</span>.tx_isolation;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看全局级的当前隔离级别：</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">@@</span><span style="color:#66d9ef">global</span>.tx_isolation;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th style="text-align:center">隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">未提交读</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td style="text-align:center">已提交读</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td style="text-align:center">可重复读</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td style="text-align:center">可串行化</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+</tr>
+</tbody>
+</table>
+<h2 id="索引"><strong>索引</strong><a hidden class="anchor" aria-hidden="true" href="#索引">#</a></h2>
+<h3 id="哪些工作表需要创建索引">哪些工作表需要创建索引<a hidden class="anchor" aria-hidden="true" href="#哪些工作表需要创建索引">#</a></h3>
+<p>通常情况下，以下类型的工作表需要创建索引：</p>
+<ul>
+<li>数据量较大的表：数据量较大的表查询效率较低，需要创建索引来提高查询速度。</li>
+<li>经常被查询的表：经常被查询的表需要创建索引来加速查询操作。</li>
+<li>进行连接操作的表：进行连接操作的表需要创建索引来提高连接效率</li>
+</ul>
+<h3 id="索引的分类"><strong>索引的分类</strong><a hidden class="anchor" aria-hidden="true" href="#索引的分类">#</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">分类方式</th>
+<th style="text-align:center">索引</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数据结构</td>
+<td style="text-align:center">B+树索引、哈希索引、全文索引</td>
+</tr>
+<tr>
+<td style="text-align:center">物理存储</td>
+<td style="text-align:center">聚簇索引（主键索引）、二级索引（辅助索引）</td>
+</tr>
+<tr>
+<td style="text-align:center">字段特性</td>
+<td style="text-align:center">主键索引、唯一索引、普通索引、前缀索引</td>
+</tr>
+<tr>
+<td style="text-align:center">字段个数</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="索引的设计原则"><strong>索引的设计原则</strong><a hidden class="anchor" aria-hidden="true" href="#索引的设计原则">#</a></h3>
+<ul>
+<li>为常作为查询条件的字段建立索引：如果某个字段经常用来做查询条件，那么该字段的查询速度会影响整个表的查询速度。因此，为这样的字段建立索引，可以提高整个表的查询速度</li>
+<li>为经常需要排序、分组和联合操作的字段建立索引：经常需要 ORDER BY、GROUP BY、DISTINCT 和 UNION 等操作的字段，排序操作会浪费很多时间。如果为其建立索引，可以有效地避免排序操作</li>
+<li>创建唯一性索引：唯一性索引的值是唯一的，可以更快的通过该索引来确定某条记录</li>
+<li>限制索引的数目：每个索引都需要占⽤用磁盘空间，索引越多，需要的磁盘空间就越大，修改表时，对索引的重构和更新很麻烦。</li>
+<li>小表不建议索引（如数量级在百万以内）：由于数据较小，查询花费的时间可能比遍历索引的时间还要短，索引可能不会产生优化效果</li>
+<li>尽量使用前缀索引：如果索引的值很长，那么查询的速度会受到影响</li>
+<li>删除不再使用或者很少使用的索引</li>
+</ul>
+<h3 id="聚簇索引"><strong>聚簇索引</strong><a hidden class="anchor" aria-hidden="true" href="#聚簇索引">#</a></h3>
+<p>聚簇索引（一级索引），一种数据存储方式，将数据放在索引的叶子页，索引和数据在同一个 B+ 树上。因为无法同时把数据放在两个地方，所以一个表只有一个聚簇索引
+在 InnoDB 中，这个索引是主键，如果没有定义主键，InnoDB 会选择一个唯一的非空索引代替，也没有的话 InnoDB 会隐式定义一个主键作为聚簇索引
+优点：
+可以把相关数据保存在一起
+数据访问更快，索引和数据在同一个结构中
+缺点：
+插入速度严重依赖插入顺序
+更新聚簇索引引列的代价高
+插入数据或更新主键时可能面临‘页分裂’问题，当主键值要求将该行插入到某个已满的页中时，存储引擎会将该页分裂成两个页面放该行，会导致表占用更多的磁盘空间
+非聚簇索引需要两次索引查找</p>
+<h3 id="覆盖索引"><strong>覆盖索引</strong><a hidden class="anchor" aria-hidden="true" href="#覆盖索引">#</a></h3>
+<p>也叫索引覆盖，查询所需要的数据都可以从索引中获取，而不用再去查询数据表中的实际数据，那么这个索引就是个覆盖索引
+覆盖索引可以减少树的搜索次数，避免了回表，显著提升了查询性能</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> ename_job <span style="color:#66d9ef">on</span> emp(ename,job);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> ename,job <span style="color:#66d9ef">from</span> emp;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="索引失效"><strong>索引失效</strong><a hidden class="anchor" aria-hidden="true" href="#索引失效">#</a></h3>
+<ul>
+<li>查询条件包含or，or的前后不都是索引</li>
+<li>使用like查询，%在前面且没有覆盖索引</li>
+<li>对索引列使用函数</li>
+<li>索引列使用运算</li>
+<li>索引列使用不等于（&lt;&gt; ! = not in）</li>
+<li>出现隐式类型转换，如字符型索引使用数字匹配</li>
+<li>联合索引没有使用最左匹配</li>
+<li>全表扫描比索引快（数据量少时）</li>
+</ul>
+<h3 id="最左前缀原则"><strong>最左前缀原则</strong><a hidden class="anchor" aria-hidden="true" href="#最左前缀原则">#</a></h3>
+<p>创建多列的联合索引时，满足最左前缀原则，例如创建(a,b,c)三列的索引，实际上相当于创建了 a、(a, b)、(a,b,c)三个索引
+当不需要考虑排序和分组时，将选择性最高的列放在前面。这时索引的作用只用于优化 where 条件的查找，这样设计可以最快过滤需要的行。</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">index</span> ename_job_sal <span style="color:#66d9ef">on</span> emp(ename,job,sal);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> emp <span style="color:#66d9ef">where</span> ename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;smith&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> emp <span style="color:#66d9ef">where</span> ename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;smith&#34;</span><span style="color:#66d9ef">and</span> job<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manager&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> emp <span style="color:#66d9ef">where</span> job<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;manager&#34;</span>;<span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">不符合</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="优化索引使用策略"><strong>优化索引（使用策略）</strong><a hidden class="anchor" aria-hidden="true" href="#优化索引使用策略">#</a></h3>
+<h4 id="使用前缀索引">使用前缀索引<a hidden class="anchor" aria-hidden="true" href="#使用前缀索引">#</a></h4>
+<p>使用前缀索引可以节约索引空间，提高索引效率，但需要平衡索引的选择性</p>
+<h4 id="联合索引">联合索引<a hidden class="anchor" aria-hidden="true" href="#联合索引">#</a></h4>
+<p>使用联合索引可以避免回表，实现覆盖索引，可以减少大量I/O操作，创建联合索引时，不同的列顺序会影响索引的性能，通常将选择性高的列放在最前面</p>
+<h4 id="合适的主键索引">合适的主键索引<a hidden class="anchor" aria-hidden="true" href="#合适的主键索引">#</a></h4>
+<p>最好选择不会修改的列作为主键，不考虑分库分表的情况下最好使用自增主键</p>
+<h4 id="不建立重复或不使用的索引">不建立重复或不使用的索引<a hidden class="anchor" aria-hidden="true" href="#不建立重复或不使用的索引">#</a></h4>
+<h4 id="防止索引失效">防止索引失效<a hidden class="anchor" aria-hidden="true" href="#防止索引失效">#</a></h4>
+<ul>
+<li>当我们使用左或者左右模糊匹配的时候，也就是 <code>like %xx</code> 或者 <code>like %xx%</code> 这两种方式都会造成索引失效；</li>
+<li>当我们在查询条件中对索引列做了计算、函数、类型转换操作，这些情况下都会造成索引失效；</li>
+<li>联合索引要能正确使用需要遵循最左匹配原则，也就是按照最左优先的方式进行索引的匹配，否则就会导致索引失效。</li>
+<li>在 WHERE 子句中，如果在 OR 前的条件列是索引列，而在 OR 后的条件列不是索引列，那么索引会失效。</li>
+</ul>
+<h2 id="其他"><strong>其他</strong><a hidden class="anchor" aria-hidden="true" href="#其他">#</a></h2>
+<h3 id="innodb-和-myisam-的比较"><strong>InnoDB 和 MyISAM 的比较</strong><a hidden class="anchor" aria-hidden="true" href="#innodb-和-myisam-的比较">#</a></h3>
+<ul>
+<li>事务:MylSAM不支持事务，InnoDB支持事务</li>
+<li>全文索引: MylSAM支持全文索引，InnoDB 5.6之前不支持全文索引</li>
+<li>关于count(): MylSAM会直接存储总行数，InnoDB则不会，需要按行扫描。意思就是对于select count(from table;如果数据量大，MylSAM会瞬间返回，而InnoDB则会一行行扫描</li>
+<li>外键:MylSAM不支持外键，InnoDB支持外键</li>
+<li>锁: MyISAM只支持表锁，InnoDB可以支持行锁。</li>
+</ul>
+<h3 id="怎么优化mysql"><strong>怎么优化MySQL</strong><a hidden class="anchor" aria-hidden="true" href="#怎么优化mysql">#</a></h3>
+<p>![[Pasted image 20231218192406.png]]</p>
+<h3 id="b树和b树"><strong>B树和B+树</strong><a hidden class="anchor" aria-hidden="true" href="#b树和b树">#</a></h3>
+<p>平衡二叉树随着节点的增加，树的高度会越来越高，会增加磁盘的I/O次数，影响查询效率，从而引出了B树，B树不限制一个节点只能有2个子节点，从而降低树的高度。B树可以将节点的大小优化为磁盘块的大小，每次读取可以有效加载多个节点，B树常用于数据库库等需要高效访问磁盘的场景，<strong>B+树是对B树的升级，B+树只有叶子节点存数据，非叶子节点只存索引。叶子节点包含所有索引，叶子节点构成一个有序链表，范围查找更快</strong>，<strong>由于非叶子节点只存索引，B+树比B树的非叶子节点可以存更多索引，高度更低，磁盘I/O次数更少</strong>
+![[Pasted image 20231214192001.png]]</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"></code></pre></td></tr></table>
+</div>
+</div><h3 id="b树和跳表的区别">B+树和跳表的区别<a hidden class="anchor" aria-hidden="true" href="#b树和跳表的区别">#</a></h3>
+<p>#待更新。。</p>
+
+
+        </div>
+        <div class="post-reward">
+            <div style="padding: 0 0 0 0; margin: 0 0 0 0; width: 100%; font-size:16px; text-align: center;">
+                <div id="QR" style="opacity: 0;">
+                    <div id="wechat" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="wechat_qr" src="https://littlestonemax.github.io/img/wechat_pay.png" alt="wechat_pay"></a>
+                        <p>微信</p>
+                    </div>
+                    <div id="alipay" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="alipay_qr" src="https://littlestonemax.github.io/img/alipay.png" alt="alipay"></a>
+                        <p>支付宝</p>
+                    </div>
+                </div>
+                <button id="rewardButton"
+                        onclick="
+                    var qr = document.getElementById('QR');
+                    if (qr.style.opacity === '0') {
+                        qr.style.opacity='1';
+                    } else {
+                        qr.style.opacity='0'
+                    }"
+                >
+                    <span>🧧 鼓励</span>
+                </button>
+            </div>
+        </div>
+
+        <footer class="post-footer">
+            
+<nav class="paginav">
+  <a class="next" href="https://littlestonemax.github.io/posts/tech/c&#43;&#43;%E5%9F%BA%E7%A1%80/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>C&#43;&#43;基础</span>
+  </a>
+</nav>
+
+        </footer>
+    </div>
+
+<style>
+    .comments_details summary::marker {
+        font-size: 20px;
+        content: '👉展开评论';
+        color: var(--content);
+    }
+    .comments_details[open] summary::marker{
+        font-size: 20px;
+        content: '👇关闭评论';
+        color: var(--content);
+    }
+</style>
+
+
+<div>
+    <details class="comments_details">
+        <summary style="cursor: pointer; margin: 50px 0 20px 0;width: 130px;">
+            <span style="font-size: 20px;color: var(--content);">...</span>
+        </summary>
+        <div id="tcomment"></div>
+    </details>
+    <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js">
+    </script>
+    <script>
+        twikoo.init({
+            envId:  null ,
+        el: "#tcomment",
+            lang: 'zh-CN',
+            region:  null ,
+        path: window.TWIKOO_MAGIC_PATH||window.location.pathname,
+        })
+    </script>
+</div>
+</article>
+</main>
+
+<footer class="footer">
+    <span>
+        Copyright
+        &copy;
+        2020-2024
+        <a href="https://littlestonemax.github.io/" style="color:#939393;">Stone&#39;s Blog</a>
+        All Rights Reserved
+    </span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#939393;">填写自己的备案号</a>&nbsp;
+    <span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=null"
+           style="display:inline-block;text-decoration:none;height:20px;color:#939393;">
+            <img src="%e5%a1%ab%e8%87%aa%e5%b7%b1%e7%9a%84%e5%85%ac%e5%ae%89%e5%9b%be%e6%a0%87%e9%93%be%e6%8e%a5" style="float:left;margin: 0px 5px 0px 0px;"/>
+            填自己的公网安备
+        </a>
+    </span>
+    <span id="busuanzi_container">
+        <span class="fa fa-user"></span> <span id="busuanzi_value_site_uv"></span>
+        <span class="fa fa-eye"></span> <span id="busuanzi_value_site_pv"></span>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <span class="topInner">
+        <svg class="topSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z"/>
+        </svg>
+        <span id="read_progress"></span>
+    </span>
+</a>
+
+<script>
+    document.addEventListener('scroll', function (e) {
+        const readProgress = document.getElementById("read_progress");
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        readProgress.innerText = ((scrollTop / (scrollHeight - clientHeight)).toFixed(2) * 100).toFixed(0);
+    })
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+</script>
+<script>
+    let mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        (function() {
+            document.cookie = "change-themes" + "="+ escape ("false");
+        })()
+
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    });
+</script>
+
+<script>
+    document.body.addEventListener('copy', function (e) {
+        if (window.getSelection().toString() && window.getSelection().toString().length > 50) {
+            let clipboardData = e.clipboardData || window.clipboardData;
+            if (clipboardData) {
+                e.preventDefault();
+                let htmlData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                let textData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                clipboardData.setData('text/html', htmlData);
+                clipboardData.setData('text/plain', textData);
+            }
+        }
+    });
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = '复制';
+
+        function copyingDone() {
+            copybutton.innerText = '已复制！';
+            setTimeout(() => {
+                copybutton.innerText = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                let text = codeblock.textContent +
+                    '\r\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                navigator.clipboard.writeText(text);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) {}
+            selection.removeRange(range);
+        });
+
+        let language = codeblock.className.replaceAll("language-", "")
+        let macTool = document.createElement("div")
+        let macTool1 = document.createElement("div")
+        let macTool2 = document.createElement("div")
+        let macTool3 = document.createElement("div")
+        let languageType = document.createElement("div")
+        languageType.innerText = language
+        macTool.setAttribute('class', 'mac-tool')
+        macTool1.setAttribute('class', 'mac bb1')
+        macTool2.setAttribute('class', 'mac bb2')
+        macTool3.setAttribute('class', 'mac bb3')
+        languageType.setAttribute('class', 'language-type')
+        macTool.appendChild(macTool1)
+        macTool.appendChild(macTool2)
+        macTool.appendChild(macTool3)
+        macTool.appendChild(languageType)
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        }
+    });
+</script>
+</body>
+
+</html>

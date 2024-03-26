@@ -6,7 +6,16 @@
     <description>Recent content in 👨🏻‍💻 技术 on Stone&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 26 Mar 2024 18:59:47 +0800</lastBuildDate><atom:link href="https://littlestonemax.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Mar 2024 19:37:37 +0800</lastBuildDate><atom:link href="https://littlestonemax.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql数据库</title>
+      <link>https://littlestonemax.github.io/posts/tech/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Tue, 26 Mar 2024 19:37:37 +0800</pubDate>
+      
+      <guid>https://littlestonemax.github.io/posts/tech/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>数据库基础 char和varchar的区别 char varchar 最大长度255字符 最大长度是65535个字节 定长不足的部分用隐藏空格填充 varchar是不定长的 char会浪费时间 varchar会节省空间 char查找效率高 varchar查找效率低 插入时可省略尾部空格 varchar插入时不会省略，查找时</description>
+    </item>
+    
     <item>
       <title>C&#43;&#43;基础</title>
       <link>https://littlestonemax.github.io/posts/tech/c&#43;&#43;%E5%9F%BA%E7%A1%80/</link>
