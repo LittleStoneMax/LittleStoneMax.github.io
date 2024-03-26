@@ -107,7 +107,7 @@ params:
     imageWidth: 150
     imageHeight: 150
     buttons:
-      - name: 🧱 建站
+      - name: 🧱 资源
         url: posts/blog
       - name: 👨🏻‍💻 技术
         url: posts/tech
@@ -146,11 +146,11 @@ params:
       SiteVerificationTag: ""
 
   assets:
-    favicon: "img/Q.gif"
-    favicon16x16: "img/Q.gif"
-    favicon32x32: "img/Q.gif"
-    apple_touch_icon: "img/Q.gif"
-    safari_pinned_tab: "img/Q.gif"
+    favicon: "img/Q.jpg"
+    favicon16x16: "img/Q.jpg"
+    favicon32x32: "img/Q.jpg"
+    apple_touch_icon: "img/Q.jpg"
+    safari_pinned_tab: "img/Q.jpg"
     disableFingerprinting: true # 禁用指纹
 
   cover:
