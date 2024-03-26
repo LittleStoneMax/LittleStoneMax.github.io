@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>👨🏻‍💻 技术 on Stone&#39;s Blog</title>
-    <link>https://xyming108.github.io/posts/tech/</link>
+    <link>https://littlestonemax.github.io/posts/tech/</link>
     <description>Recent content in 👨🏻‍💻 技术 on Stone&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 26 Mar 2024 15:46:44 +0800</lastBuildDate><atom:link href="https://xyming108.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Mar 2024 15:46:44 +0800</lastBuildDate><atom:link href="https://littlestonemax.github.io/posts/tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux入门</title>
-      <link>https://xyming108.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/</link>
+      <link>https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/</link>
       <pubDate>Tue, 26 Mar 2024 15:46:44 +0800</pubDate>
       
-      <guid>https://xyming108.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/</guid>
+      <guid>https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/</guid>
       <description>简单面经</description>
     </item>
     
     <item>
       <title>Redis scan命令学习</title>
-      <link>https://xyming108.github.io/posts/tech/tech1/</link>
+      <link>https://littlestonemax.github.io/posts/tech/tech1/</link>
       <pubDate>Wed, 30 Nov 2022 15:55:23 +0800</pubDate>
       
-      <guid>https://xyming108.github.io/posts/tech/tech1/</guid>
+      <guid>https://littlestonemax.github.io/posts/tech/tech1/</guid>
       <description>scan命令详解</description>
     </item>
     
     <item>
       <title>Tech</title>
-      <link>https://xyming108.github.io/posts/tech/tech/</link>
+      <link>https://littlestonemax.github.io/posts/tech/tech/</link>
       <pubDate>Thu, 05 May 2022 00:17:58 +0800</pubDate>
       
-      <guid>https://xyming108.github.io/posts/tech/tech/</guid>
+      <guid>https://littlestonemax.github.io/posts/tech/tech/</guid>
       <description>科技代码</description>
     </item>
     

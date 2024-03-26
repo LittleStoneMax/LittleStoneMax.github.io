@@ -66,11 +66,13 @@ outputs:
     - RSS
     - JSON
 
+publishdir: "docs"
+
 # 这里的参数会被代码以 .Site.Params 的形式读取
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   description: ""
-  author: Sulv
+  author: Stone
   # author: ["Me", "You"] # multiple authors
 
   defaultTheme: auto  # defaultTheme: light or  dark
