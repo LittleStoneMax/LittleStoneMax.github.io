@@ -13,7 +13,7 @@ buildFuture: false
 buildExpired: false
 
 googleAnalytics:  # 谷歌统计
-# Copyright: Sulv
+# Copyright: Stone
 
 paginate: 15    # 首页每页显示的文章数
 summaryLength: 140 # 文章概览的自字数，默认70
@@ -99,7 +99,7 @@ params:
 
   profileMode:
     enabled: true
-    title: (〃'▽'〃)
+    title: Hello World!
     subtitle:
     # subtitle: "🧨学而时习之，不亦说乎？有朋自远方来，不亦乐乎？<br/>👇联系方式"
     imageUrl: "img/Q.gif"
@@ -118,26 +118,26 @@ params:
 
   socialIcons:
     - name: github
-      url: "https://github.com/xyming108"
-    - name: twitter
-      url: "img/twitter.png"
-    - name: facebook
-      url: "https://www.facebook.com/profile.php?id=100027782410997"
-    - name: instagram
-      url: "img/instagram.png"
+      url: "https://github.com/LittleStoneMax/LittleStoneMax.github.io"
+    # - name: twitter
+    #   url: "img/twitter.png"
+    # - name: facebook
+    #   url: "https://www.facebook.com/profile.php?id=100027782410997"
+    # - name: instagram
+    #   url: "img/instagram.png"
     - name: QQ
       url: "img/qq.png"
     - name: WeChat
       url: "img/wechat.png"
-    - name: bilibili
-      url: "https://space.bilibili.com/234461224"
+    # - name: bilibili
+    #   url: "https://space.bilibili.com/234461224"
     - name: email
-      url: "mailto:1931559710@qq.com"
+      url: "mailto:1647260508@qq.com"
     - name: RSS
       url: "index.xml"
 
   label: # 左上角图标
-    text: "Sulv's Blog"
+    text: "Stone's Blog"
     icon: "img/Q.gif"
     iconHeight: 35
 
@@ -198,7 +198,7 @@ markup:
     # anchorLineNos: true
     codeFences: true
     guessSyntax: true
-    # lineNos: true
+    lineNos: true
     noClasses: true
     tabWidth: 4
     style: monokai

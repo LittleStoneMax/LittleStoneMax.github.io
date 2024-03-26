@@ -2,7 +2,7 @@
 title: "C++基础"
 date: 2024-03-26T18:59:47+08:00
 lastmod: 2024-03-26T18:59:47+08:00
-author: ["Sulv"]
+author: ["LittleStoneMax"]
 keywords: 
 - 
 categories: # 没有分类界面可以不填写
