@@ -32,12 +32,11 @@ showbreadcrumbs: false
 <div style="font-size: 16px;">
 
 
-|        |                                   |
-| ------ | --------------------------------- |
-| 名称： | Sulv's Blog                       |
-| 网址： | https://www.sulvblog.cn           |
-| 图标： | https://www.sulvblog.cn/img/Q.gif |
-| 描述： | 一个记录技术、阅读、生活的博客    |
+|        |                                      |
+| ------ | ------------------------------------ |
+| 名称： | Stone's Blog                         |
+| 网址： | https://www.littlestonemax.github.io |
+| 描述： | 一个记录技术、阅读、生活的博客       |
 
 </div>
 

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C&#43;&#43;基础 | Stone&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="C&#43;&#43;面经">
+<meta name="author" content="Sulv">
+<link rel="canonical" href="https://littlestonemax.github.io/posts/tech/c&#43;&#43;%E5%9F%BA%E7%A1%80/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="icon" type="image/png" sizes="16x16" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="icon" type="image/png" sizes="32x32" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="apple-touch-icon" href="https://littlestonemax.github.io/img/Q.gif">
+<link rel="mask-icon" href="https://littlestonemax.github.io/img/Q.gif">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://littlestonemax.github.io/posts/tech/c&#43;&#43;%E5%9F%BA%E7%A1%80/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script defer src="https://unpkg.com/mermaid@8.8.1/dist/mermaid.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = ""; 
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<meta property="og:title" content="C&#43;&#43;基础" />
+<meta property="og:description" content="C&#43;&#43;面经" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://littlestonemax.github.io/posts/tech/c&#43;&#43;%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-26T18:59:47+08:00" />
+<meta property="article:modified_time" content="2024-03-26T18:59:47+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C&#43;&#43;基础"/>
+<meta name="twitter:description" content="C&#43;&#43;面经"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+
+        {
+          "@type": "ListItem",
+          "position":  1 ,
+          "name": "📚文章",
+          "item": "https://littlestonemax.github.io/posts/"
+        },
+
+        {
+          "@type": "ListItem",
+          "position":  2 ,
+          "name": "👨🏻‍💻 技术",
+          "item": "https://littlestonemax.github.io/posts/tech/"
+        }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "C++基础",
+      "item": "https://littlestonemax.github.io/posts/tech/c++%E5%9F%BA%E7%A1%80/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "C++基础",
+  "name": "C\u002b\u002b基础",
+  "description": "C++面经",
+  "keywords": [
+    ""
+  ],
+  "articleBody": "基础 引用和指针的区别 引用在定义时必须被初始化并且不能被初始化为NULL，指针没有要求 引用不能改变引用关系（底层用指针常量实现），指针随意 有多级指针没有多级引用 自增自减表达的含义不同。指针自加即指针向后偏移一个类型的大小，引用自增即引用的实体自加 指针用sizeof计算大小结果不同，指针在32位内存下是4字节，在64位内存下是8字节，引用结果为类型大小 指针是一个实体，需要分配空间；引用是变量的别名，不需要分配内存空间 访问实体的方式不同，指针需要显示解引用，引用编译器自己处理 在语法概念上,引用就是一个别名,没有独立空间,和其引用实体共用同一块空间.但是在底层实现上实际是有空间的,因为引用是按照指针方式来实现的\nmalloc free和new delete的区别 malloc和free是c语言中的库函数 new和delete是c++中操作符 new自动计算所需分配内存大小 malloc需要手动计算 new返回的是对象类型的指针 malloc返回的是void*之后进行类型转换 new分配失败会抛出异常 malloc分配失败返回的是NULL new是在freestore（自由存储区）上分配内存 malloc通常在堆上分配 delete需要对象类型的指针 free是void*类型的指针 malloc分配的是虚拟内存不一定有物理内存 若小于128k分配在堆上若大于128k分配在文件映射区\nnew 1 operator new 2 申请足够的空间 3 调用构造函数初始化成员变量 delete 1 先调用析构函数 2 operator delete 3 释放空间\nfree(p)怎么知道该释放多大的空间 malloc在分配空间时会多分配16个字节用来存储内存块的描述信息 在free释放空间时会左偏移16个字节读取信息\nmalloc出错会发生什么 出错原因： 一是物理内存或虚拟内存不足，即系统可提供的空闲内存无法满足程序的需求； 二是前面的程序出现了内存访问越界，导致malloc相关函数调用出现问题，这种情况下，再次使用malloc函数申请内存就可能失败 申请空间失败会返回NULL 会导致空指针\n函数重载、重写、隐藏的区别 重载（overload）：在同一作用域中，同名函数的形式参数（参数个数，类型或顺序）不同时构成函数重载\nclass A{ public: int func(int a); void func(int a,int b); void func(int a,int b,int c); int func(char* pstr,int a); } 函数返回值类型与是否构成函数重载无关，不能通过函数返回类型不同来重载函数 类的静态成员函数与普通成员函数可以形成重载 函数重载发生在同一作用域，如类成员之间的重载，全局函数之间的重载 const重载 class B{ public: void funcA(); void funcA() const;//可以通过const重载 void funcB(int a); void funcB(const int a);//不行 编译过不了 }; funcA函数是合法重载而funcB函数是非法的不能通过编译 重写/覆盖（override）：派生类中与基类同返回值类型、同名和同参数的虚函数重定义，构成虚函数覆盖，也叫虚函数重写 重写的特殊情况–协变：当基类和派生类中该函数的返回值为父子关系的指针或者引用，返回值可以不同，这种情况称作协变 隐藏（hiding）：不同作用域中定义的同名函数构成隐藏（不要求函数返回值和参数类型相同）比如派生类成员函数隐藏与其同名的基类成员函数，类成员函数隐藏全局外部函数\n在子类中只要函数名和父类相同不是重写就是隐藏 两个函数参数不同，无论基类函数是不是虚函数，都会被隐藏\nclass Base{ public: void funA(){cout\u003c\u003c\"funA()\"\u003c\u003cendl;} virtual void funB(){cout\u003c\u003c\"funB()\"\u003c\u003cendl;} }; class Heri:public Base{ public: void funA(){cout\u003c\u003c\"funA():Heri\"\u003c\u003cendl;}//函数隐藏因为不是虚函数 void funA(int a){cout\u003c\u003c\"funA(int a):heri\"\u003c\u003ca\u003c\u003cendl;}//函数隐藏参数不同 void funB(){cout\u003c\u003c\"funB():heri\"\u003c\u003cendl;}//函数重写 }; 三者对比\n函数重载发生在相同作用域 函数隐藏发生在不同作用域 函数覆盖就是函数重写，是函数隐藏的特例 三者 作用域 有无virtual 函数名 形参列表 返回值类型 重载 相同 可有可无 相同 不同 可同可不同 隐藏 不同 可有可无 相同 可同可不同 可同可不同 重写 不同 有 相同 相同 相同（协变） 深拷贝和浅拷贝？ c++中，浅拷贝不需要自己实现，编译器会自动生成默认的拷贝构造函数，浅拷贝新旧对象共享一块内存，任何一方的值改变都会影响另一方；深拷贝需要自己手动编写拷贝构造函数，浅拷贝新旧对象不共享内存\ntitle:浅拷贝 collapse:close c++的浅拷贝是通过拷贝构造函数实现的，如果不重载拷贝构造函数和赋值函数，编译器将以浅拷贝的方式自动生成默认的函数，也就是在拷贝时简单的赋值某个对象的指针，容易造成问题 假设A类有两个对象a和b,a.data为\"hello\",b.data为\"world\"当将a的值赋给b时,可能有以下问题 1.b.data的内存没释放,造成内存泄露 2.b.data和a.data指向了同一块内存,a或b任何一方的值改变都会修改另一方的值 3.在对象被析构时,data被释放了两次 title:深拷贝 collapse:close 深拷贝必须显式提供拷贝构造函数和赋值运算符,而且新旧对象不共享内存,在编写拷贝构造时会开辟一个新的内存空间 什么时候会使用深拷贝? 1.一个对象以值传递的方式传入函数体 2.一个对象以值传递的方式从函数体返回 3.一个对象需要通过另一个对象进行初始化 虚函数表和虚函数表指针的创建时机？ 虚函数表：编译器编译的时候生成，发现virtual关键字修饰的函数后,虚函数表依赖类存在，不依赖对象 虚函数表存储在:代码段(常量区) 虚函数表指针：类对象构造的时候，把类的虚函数表地址赋值给vptr;类的对象前8个字节就是虚函数表的地址；在B继承A的情况下，虚函数表指针赋值过程为先调用基类构造函数，把A的虚函数表的地址赋值给vptr，再调用子类构造函数，把B的虚函数表的地址赋值给vptr;\n构造函数和析构函数能不能是虚函数？ 构造函数不可以\n因为创建一个对象时要确定对象的类型，而虚函数是在运行时确定其类型的，而在构造一个对象时，由于对象还未创建成功，编译器无法知道对象的实际类型。 虚函数对应一个虚表，可是这个虚表其实是存储在对象的内存空间的。如果构造函数是虚的，就需要通过虚表来调用，可是对象还没有实例化，也就是内存空间还没有，怎么找虚表呢？所以构造函数不能是虚函数。 析构函数可以 1、在多态当中，基类的方法被定义成虚函数，才可以通过基类指针动态调用派生类的方法，同理当我们delete 基类指针，如果基类析构函数不是虚函数，就无法动态调用到派生类的析构函数，导致派生类的对象无法析构，造成内存泄漏。反之，基类析构函数被定义成虚函数的时候，delete基类指针时，会先析构派生类对象，再析构基类对象 多态是怎么实现的？ 静态多态： 编译阶段实现，其原理是由函数重载实现，通过不同的实参调用其相应的同名函数。 动态多态： 必须通过基类的指针或者引用调用 被调用的必须是虚函数，且在派生类中实现了该虚函数的重写 （注意：只有虚函数才有重写这个概念） 动态多态的实现是依靠不同对象的虚函数指针指向的虚函数表实现的，因为里面存储了对应的虚函数 对象的指针或者引用调用虚函数时，不是编译时决议，而是运行时决议，即程序开始运行时到指定的对象虚函数表中去调用对应的虚函数，所以指向基类对象，调用是基类虚函数，指向派生类对象，调用是派生类虚函数\n1.先将基类中的虚表内容拷贝一份到派生类虚表中 2.如果派生类重写基类中某个虚函数，派生类自己的虚函数覆盖虚表中基类的虚函数 3.派生类自己新增加的虚函数按其在 派生类中的声明次序增加到派生类虚表的最后\nC和C++的区别 C++语言支持函数重载，而C不支持函数重载\nC ++编译过程 预处理阶段：引入头文件，宏替换，删除注释，生产以i为结尾的预编译文件 编译阶段：检查语法错误，没有错误将代码解释为汇编，生成以s为结尾的汇编文件 汇编阶段：将汇编代码解释为二进制的cpu指令，生成以o结尾的可重定向目标文件 链接阶段：目标文件不能直接执行，因为某个.cpp文件调用另外一个.cpp文件，为了解决这类问题，调用目标文件与被调用的目标文件连接起来，最终得到可执行程序exe，链接分为静态静态链接和动态链接 静态链接：目标文件直接拷贝到可执行文件中的链接方式，使用静态链接生成静态库，静态库对函数库的链接是在编译时期完成的 动态链接：程序运行时动态加载目标文件的链接方式 C++有几种传参方式，区别是什么？ 值传递：形参是实参的拷贝，在外部某个函数中改变形参的值并不会影响主函数内的数据 指针传递：形参为指向实参地址的指针，当对形参的指向操作时，就相当于对实参本身进行的操作，函数传递的时候只传入一个指针占用四个字节的空间 引用传递：形参相当于是实参的“别名”，对形参的操作其实就是对实参的操作，在引用传递过程中，被调函数的形式参数虽然也作为局部变量在栈中开辟了内存空间，但是这时存放的是由主调函数放进来的实参变量的地址\ninclude头文件的顺序以及双引号和尖括号的区别？ 尖括号\u003c\u003e的头文件是系统文件（标准库），双引号\"“的头文件是自定义文件 使用尖括号的查找路径：编译器设置的头文件路径-\u003e系统变量 使用双引号的查找路径：当前头文件目录-\u003e编译器设置的头文件路径-\u003e系统变量\n常量指针和指针常量的区别 int a = 1; int b = 2; int c = 3; int const *p1 = \u0026b;//const在前,p1为常量指针 int *const p2 = \u0026c;//*在前，p2为指针常量 p1 = \u0026a;//正确，p1是常量指针，可以指向新的地址(即\u0026a),即p1本身可以改变 *p1 = a;//错误，*p1是指针p1指向对象的值,不可以改变，因此不能对*p重新赋值 p2 = \u0026a;//错误，p2是指针常量，本身不可以改变，因此将a的地址赋给p2是错误的 *p2 = a;//正确，p2指向的对象允许改变 常量指针p1：即指向const对象的指针，指向的地址可以改变，但其指向的内容（即对象的值）不可以改变 指针常量p2：指针本身是常量，即指向的地址本身不可以改变，但内容（即对象的值）可以改变\n声明、定义和初始化 声明：声明主要用于向程序表明变量的类型和名字，它不会为变量分配存储空间，可多次声明 定义：定义则是为变量分配存储空间，同时可以为变量指定初始值。当定义一个变量时，同时声明了它的类型。对于变量而言，定义只能有一次 初始化：初始化则是为变量赋初值\nvector插入元素，进行几次内存拷贝？ title:test collapse: open icon: triforce color: 200,50, 200 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. 内存泄漏、内存溢出和内存越界 内存泄漏：程序中已动态分配的堆内存由于某种原因程序未释放或无法释放，造成系统内存的浪费 内存溢出：系统中存在无法回收的内存或使用的内存过多，最终使得程序运行要用到的内存大于能提供的最大内存 内存越界：程序在运行过程中访问了不在预分配的内存空间或者超出了已分配内存空间的大小\n栈区会内存泄漏吗？ 栈区一般不会发生内存泄露\n如何解决栈溢出？ 减少函数递归层次 减少局部变量数量 扩大栈的空间 空指针和野指针 野指针：指针指向的空间是不可知的、随机的、没有明确限制的 产生野指针的三种情况：\n指针未初始化 指针越界访问 指针指向的空间释放 规避野指针： 指针初始化 小心指针越界 指针指向空间释放及时置NULL 避免返回局部变量的地址 指针使用之前检查有效性 空指针：指向对象为空的指针 空指针p并不表示指向0x00000000地址的存储单元，而是表示不指向任何有效空间，虽然输出是如此 内存相关 堆和栈的区别 堆栈空间分配不同：栈由操作系统自动分配释放，存放函数的参数值，局部变量的值等；堆一般由程序员分配释放。 堆栈缓存方式不同：栈使用的是一级缓存，它们通常都是被调用时处于存储空间中，调用完毕立即释放；堆则是存放在二级缓存中，速度要慢些。 堆栈数据结构不同：堆类似数组结构；栈类似栈结构，先进后出。 内存管理 内存分成5个区，他们分别是堆、栈、自由存储区、全局/静态存储区和常量存储区。\n栈：在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放 堆：由new创建的内存块，一般一个new对应一个delete 自由存储区：由malloc分配的内存块，类似于堆，用free释放 全局/静态存储区：全局变量和静态变量被分配到同一块内存 常量存储区：存放常量，不允许修改 内存泄漏 常见的内存泄漏：\nnew和malloc申请资源使用后，没用delete和free释放 子类继承父类时，父类析构函数不是虚函数 windows句柄资源使用后没有释放 程序有哪些section，分别的作用？程序启动的过程？怎么判断数据分配在栈上还是堆上？ ![[Pasted image 20240321202842.png]] 从低地址到高地址，一个程序又代码段、数据段、BSS段、堆、共享区、栈等组成\n数据段：存放程序中已经初始化的全局变量和静态变量的一块内存区域 代码段：存放程序执行代码的一块内存区域，只读，代码段头部还包含一些只读的常数变量 BSS段：存放程序中未初始化的全局变量和静态变量的一块内存区域 堆区：动态申请内存使用，堆从低地址向高地址增长 共享区：位于堆和栈之间 栈区：存储局部变量、函数参数值。栈从高地址向低地址增长，是连续的空间 关键字 const关键字 const:常量限定符，通知编译器该变量不可修改 const修饰一般常量和数组\nint const a = 100; const int a = 100; //与上面等价 int const arr [3] = {1,2,3}; const int arr [3] = {1,2,3};//与上面等价 char *p = \"hello\"; // 非const指针非const数据 const char *p = \"hello\"; // 非const指针,const数据 char * const p = \"hello\"; // const指针,非const数据 const char * const p = \"hello\"; // const指针,const数据 inline关键字（内联） 编译器在编译阶段完成对inline函数的处理，即对inline函数的调用替换为函数的本体，但这只是对编译器的建议，编译器可以这样做，也可以不这样做\n将inline函数体复制到inline函数调用处 为所用inline函数中的局部变量分配到内存空间 将Inline函数的输入参数和返回值映射到调用方法的局部变量空间中 如果inline函数有多个返回点，将其转变为inline函数代码块末尾的分支 inline通过消除调用开销来提升性能 相比宏函数的优点： 内联函数同宏函数一样在被调用处进行代码展开，省去了参数压栈、栈帧开辟和回收、结果返回等，从而提高程序运行速度 内联函数相比宏函数来说，在代码展开时，会做安全检查或自动类型转换（同普通函数），而宏定义不会 缺点： 代码膨胀，空间换时间 inline函数无法随着函数库升级而升级 是否内联，程序员不可控，inline关键字只是对编译器的建议，决定权在编译器 - 使用函数指针调用内联函数会导致内联失败 - 如果函数代码过长或者有多重循环语句,if或witch分支语句或递归时,不宜用内联 - 类的构造函数、析构函数和虚函数不适合inline函数 explicit关键字 explicit用于修饰只有一个参数的类构造函数，表明该构造函数必须显式调用，禁止隐式转换\nC++11 左值引用和右值引用 引用：是变量的别名，不占内存空间，声明时必须初始化（不能为NULL），通过引用 修改变量值 左值：可以在等号两边，能取到地址的有名字的都是左值 变量名、返回左值引用的函数调用、前置自增/自减，解引用，赋值运算等 右值：只能在等号右边，不能取到地址没有名字的是右值 纯右值：字面值、返回非引用类型的函数调用，后置自增/自减，各种表达式 将亡值：c++11新引入的与右值引用（移动语义）相关的值类型，用来触发移动 构造或移动赋值构造，并进行资源转移，之后调用析构函数 左值引用：对左值的引用，避免对象拷贝，函数传参，函数返回值 右值引用：对右值的引用，实现移动语义，实现完美转发 const左值引用能指向右值（不能修改这个值），为此引入右值引用 右值引用通过std::move()可以指向左值 声明出来的左值引用或右值引用都是左值\nSTL ",
+  "wordCount" : "6394",
+  "inLanguage": "zh",
+  "datePublished": "2024-03-26T18:59:47+08:00",
+  "dateModified": "2024-03-26T18:59:47+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "Sulv"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://littlestonemax.github.io/posts/tech/c++%E5%9F%BA%E7%A1%80/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Stone's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://littlestonemax.github.io/img/Q.gif"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    (function () {
+        let  arr,reg = new RegExp("(^| )"+"change-themes"+"=([^;]*)(;|$)");
+        if(arr = document.cookie.match(reg)) {
+        } else {
+            if (new Date().getHours() >= 19 || new Date().getHours() < 6) {
+                document.body.classList.add('dark');
+                localStorage.setItem("pref-theme", 'dark');
+            } else {
+                document.body.classList.remove('dark');
+                localStorage.setItem("pref-theme", 'light');
+            }
+        }
+    })()
+
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://littlestonemax.github.io/" accesskey="h" title="Sulv&#39;s Blog (Alt + H)">
+            <img src="https://littlestonemax.github.io/img/Q.gif" alt="logo" aria-label="logo"
+                 height="35">Sulv&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://littlestonemax.github.io/search" title="🔍 搜索 (Alt &#43; /)" accesskey=/>
+                <span>🔍 搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/" title="🏠 主页">
+                <span>🏠 主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/posts" title="📚 文章">
+                <span>📚 文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/tags" title="🧩 标签">
+                <span>🧩 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/archives/" title="⏱️ 时间轴">
+                <span>⏱️ 时间轴</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/about" title="🙋🏻‍♂️ 关于">
+                <span>🙋🏻‍♂️ 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://littlestonemax.github.io/links" title="🤝 友链">
+                <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main page">
+<style>
+    i[id*="post_meta_style"] {
+        display: flex;
+        align-items: center;
+        margin: 0 0 10px 0;
+    }
+</style>
+
+<article class="post-single">
+    <div id="single-content">
+        <header class="post-header">
+            <div class="breadcrumbs"><a href="https://littlestonemax.github.io/">🏠 主页</a>&nbsp;»&nbsp;<a href="https://littlestonemax.github.io/posts/">📚文章</a>&nbsp;»&nbsp;<a href="https://littlestonemax.github.io/posts/tech/">👨🏻‍💻 技术</a></div>
+            <h1 class="post-title">
+                C&#43;&#43;基础
+            </h1>
+            <div class="post-description">
+                C&#43;&#43;面经
+            </div>
+            <div class="post-meta">
+
+<style>
+    i[id*="post_meta_style"] {
+        display: flex;
+        align-items: center;
+        margin: 0 0 10px 0;
+    }
+
+    .parent-post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        opacity: 0.8;
+    }
+</style>
+
+<span class="parent-post-meta">
+    <span id="post_meta_style_1">
+        <span class="fa fa-calendar-check-o"></span>
+        <span>2024-03-26
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    <span id="post_meta_style_3">
+        <span class="fa fa-file-word-o"></span>
+        <span>6394字
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_4">
+        <span class="fa fa-clock-o"></span>
+        <span>13分钟
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_5">
+        <span class="fa fa-user-o"></span>
+        <span>Sulv
+            &nbsp;&nbsp;
+        </span>
+    </span>
+    <span id="post_meta_style_6">
+        <span class="fa fa-tags" style="opacity: 0.8"></span>
+        <span>
+            <span class="post-tags-meta">
+            </span>
+        </span>
+    </span>
+</span>
+<span style="opacity: 0.8;">
+                    <span id="post_meta_style_7">
+                        &nbsp;&nbsp;
+                        <span class="fa fa-eye" ></span>
+                        <span>
+                            <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+                            &nbsp;&nbsp;
+                        </span>
+                    </span>
+                    <span id="post_meta_style_8">
+                        <span class="fa fa-commenting-o"></span>
+                        <span>
+                            <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js"></script>
+                            <script>
+                                let url = document.documentURI
+                                
+                                let dnsUrl = "https://littlestonemax.github.io/"
+                                let urlSplit = url.split(dnsUrl)
+                                let finalUrl = urlSplit[1]
+                                if (finalUrl[0] !== '/') {
+                                    finalUrl = '/'+finalUrl
+                                }
+                                twikoo.getCommentsCount({
+                                    envId:  null , 
+                                region:  null , 
+                                urls: [ 
+                                    
+                                    finalUrl,
+                                ],
+                                    includeReply: false 
+                                }).then(function (res) {
+                                    let count = res[0].count
+                                    const obj = document.getElementById("comment_count");
+                                    obj.innerText = count
+                                    
+                                    
+                                    
+                                }).catch(function (err) {
+                                    
+                                    console.error(err);
+                                });
+                            </script>
+                            <span id="comment_count"></span>
+                        </span>
+                    </span>
+                </span>
+
+</div>
+        </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%9f%ba%e7%a1%80" aria-label="基础">基础</a><ul>
+                        
+                <li>
+                    <a href="#%e5%bc%95%e7%94%a8%e5%92%8c%e6%8c%87%e9%92%88%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="引用和指针的区别">引用和指针的区别</a></li>
+                <li>
+                    <a href="#malloc-free%e5%92%8cnew-delete%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="malloc free和new delete的区别">malloc free和new delete的区别</a></li>
+                <li>
+                    <a href="#freep%e6%80%8e%e4%b9%88%e7%9f%a5%e9%81%93%e8%af%a5%e9%87%8a%e6%94%be%e5%a4%9a%e5%a4%a7%e7%9a%84%e7%a9%ba%e9%97%b4" aria-label="free(p)怎么知道该释放多大的空间">free(p)怎么知道该释放多大的空间</a></li>
+                <li>
+                    <a href="#malloc%e5%87%ba%e9%94%99%e4%bc%9a%e5%8f%91%e7%94%9f%e4%bb%80%e4%b9%88" aria-label="malloc出错会发生什么">malloc出错会发生什么</a></li>
+                <li>
+                    <a href="#%e5%87%bd%e6%95%b0%e9%87%8d%e8%bd%bd%e9%87%8d%e5%86%99%e9%9a%90%e8%97%8f%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="函数重载、重写、隐藏的区别">函数重载、重写、隐藏的区别</a></li>
+                <li>
+                    <a href="#%e6%b7%b1%e6%8b%b7%e8%b4%9d%e5%92%8c%e6%b5%85%e6%8b%b7%e8%b4%9d" aria-label="深拷贝和浅拷贝？">深拷贝和浅拷贝？</a></li>
+                <li>
+                    <a href="#%e8%99%9a%e5%87%bd%e6%95%b0%e8%a1%a8%e5%92%8c%e8%99%9a%e5%87%bd%e6%95%b0%e8%a1%a8%e6%8c%87%e9%92%88%e7%9a%84%e5%88%9b%e5%bb%ba%e6%97%b6%e6%9c%ba" aria-label="虚函数表和虚函数表指针的创建时机？">虚函数表和虚函数表指针的创建时机？</a></li>
+                <li>
+                    <a href="#%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e5%92%8c%e6%9e%90%e6%9e%84%e5%87%bd%e6%95%b0%e8%83%bd%e4%b8%8d%e8%83%bd%e6%98%af%e8%99%9a%e5%87%bd%e6%95%b0" aria-label="构造函数和析构函数能不能是虚函数？">构造函数和析构函数能不能是虚函数？</a></li>
+                <li>
+                    <a href="#%e5%a4%9a%e6%80%81%e6%98%af%e6%80%8e%e4%b9%88%e5%ae%9e%e7%8e%b0%e7%9a%84" aria-label="多态是怎么实现的？">多态是怎么实现的？</a></li>
+                <li>
+                    <a href="#c%e5%92%8cc%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="C和C&#43;&#43;的区别">C和C++的区别</a></li>
+                <li>
+                    <a href="#c-%e7%bc%96%e8%af%91%e8%bf%87%e7%a8%8b" aria-label="C &#43;&#43;编译过程">C ++编译过程</a></li>
+                <li>
+                    <a href="#c%e6%9c%89%e5%87%a0%e7%a7%8d%e4%bc%a0%e5%8f%82%e6%96%b9%e5%bc%8f%e5%8c%ba%e5%88%ab%e6%98%af%e4%bb%80%e4%b9%88" aria-label="C&#43;&#43;有几种传参方式，区别是什么？">C++有几种传参方式，区别是什么？</a></li>
+                <li>
+                    <a href="#include%e5%a4%b4%e6%96%87%e4%bb%b6%e7%9a%84%e9%a1%ba%e5%ba%8f%e4%bb%a5%e5%8f%8a%e5%8f%8c%e5%bc%95%e5%8f%b7%e5%92%8c%e5%b0%96%e6%8b%ac%e5%8f%b7%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="include头文件的顺序以及双引号和尖括号的区别？">include头文件的顺序以及双引号和尖括号的区别？</a></li>
+                <li>
+                    <a href="#%e5%b8%b8%e9%87%8f%e6%8c%87%e9%92%88%e5%92%8c%e6%8c%87%e9%92%88%e5%b8%b8%e9%87%8f%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="常量指针和指针常量的区别">常量指针和指针常量的区别</a></li>
+                <li>
+                    <a href="#%e5%a3%b0%e6%98%8e%e5%ae%9a%e4%b9%89%e5%92%8c%e5%88%9d%e5%a7%8b%e5%8c%96" aria-label="声明、定义和初始化">声明、定义和初始化</a></li>
+                <li>
+                    <a href="#vector%e6%8f%92%e5%85%a5%e5%85%83%e7%b4%a0%e8%bf%9b%e8%a1%8c%e5%87%a0%e6%ac%a1%e5%86%85%e5%ad%98%e6%8b%b7%e8%b4%9d" aria-label="vector插入元素，进行几次内存拷贝？">vector插入元素，进行几次内存拷贝？</a></li>
+                <li>
+                    <a href="#%e5%86%85%e5%ad%98%e6%b3%84%e6%bc%8f%e5%86%85%e5%ad%98%e6%ba%a2%e5%87%ba%e5%92%8c%e5%86%85%e5%ad%98%e8%b6%8a%e7%95%8c" aria-label="内存泄漏、内存溢出和内存越界">内存泄漏、内存溢出和内存越界</a></li>
+                <li>
+                    <a href="#%e6%a0%88%e5%8c%ba%e4%bc%9a%e5%86%85%e5%ad%98%e6%b3%84%e6%bc%8f%e5%90%97" aria-label="栈区会内存泄漏吗？">栈区会内存泄漏吗？</a></li>
+                <li>
+                    <a href="#%e5%a6%82%e4%bd%95%e8%a7%a3%e5%86%b3%e6%a0%88%e6%ba%a2%e5%87%ba" aria-label="如何解决栈溢出？">如何解决栈溢出？</a></li>
+                <li>
+                    <a href="#%e7%a9%ba%e6%8c%87%e9%92%88%e5%92%8c%e9%87%8e%e6%8c%87%e9%92%88" aria-label="空指针和野指针">空指针和野指针</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%86%85%e5%ad%98%e7%9b%b8%e5%85%b3" aria-label="内存相关">内存相关</a><ul>
+                        
+                <li>
+                    <a href="#%e5%a0%86%e5%92%8c%e6%a0%88%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="堆和栈的区别">堆和栈的区别</a></li>
+                <li>
+                    <a href="#%e5%86%85%e5%ad%98%e7%ae%a1%e7%90%86" aria-label="内存管理">内存管理</a></li>
+                <li>
+                    <a href="#%e5%86%85%e5%ad%98%e6%b3%84%e6%bc%8f" aria-label="内存泄漏">内存泄漏</a></li>
+                <li>
+                    <a href="#%e7%a8%8b%e5%ba%8f%e6%9c%89%e5%93%aa%e4%ba%9bsection%e5%88%86%e5%88%ab%e7%9a%84%e4%bd%9c%e7%94%a8%e7%a8%8b%e5%ba%8f%e5%90%af%e5%8a%a8%e7%9a%84%e8%bf%87%e7%a8%8b%e6%80%8e%e4%b9%88%e5%88%a4%e6%96%ad%e6%95%b0%e6%8d%ae%e5%88%86%e9%85%8d%e5%9c%a8%e6%a0%88%e4%b8%8a%e8%bf%98%e6%98%af%e5%a0%86%e4%b8%8a" aria-label="程序有哪些section，分别的作用？程序启动的过程？怎么判断数据分配在栈上还是堆上？">程序有哪些section，分别的作用？程序启动的过程？怎么判断数据分配在栈上还是堆上？</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%85%b3%e9%94%ae%e5%ad%97" aria-label="关键字">关键字</a><ul>
+                        
+                <li>
+                    <a href="#const%e5%85%b3%e9%94%ae%e5%ad%97" aria-label="const关键字">const关键字</a></li>
+                <li>
+                    <a href="#inline%e5%85%b3%e9%94%ae%e5%ad%97%e5%86%85%e8%81%94" aria-label="inline关键字（内联）">inline关键字（内联）</a></li>
+                <li>
+                    <a href="#explicit%e5%85%b3%e9%94%ae%e5%ad%97" aria-label="explicit关键字">explicit关键字</a></li></ul>
+                </li>
+                <li>
+                    <a href="#c11" aria-label="C&#43;&#43;11">C++11</a><ul>
+                        
+                <li>
+                    <a href="#%e5%b7%a6%e5%80%bc%e5%bc%95%e7%94%a8%e5%92%8c%e5%8f%b3%e5%80%bc%e5%bc%95%e7%94%a8" aria-label="左值引用和右值引用">左值引用和右值引用</a></li></ul>
+                </li>
+                <li>
+                    <a href="#stl" aria-label="STL">STL</a>
+                </li>
+            </ul>
+        </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        if (elements) {
+            activeElement = Array.from(elements).find((element) => {
+                if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                    (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                    return element;
+                }
+            }) || activeElement
+
+            elements.forEach(element => {
+                const id = encodeURI(element.getAttribute('id')).toLowerCase();
+                if (element === activeElement){
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+                } else {
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+                }
+            })
+        }
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+        <div class="post-content"><h1 id="基础">基础<a hidden class="anchor" aria-hidden="true" href="#基础">#</a></h1>
+<h2 id="引用和指针的区别">引用和指针的区别<a hidden class="anchor" aria-hidden="true" href="#引用和指针的区别">#</a></h2>
+<ol>
+<li>引用在定义时必须被初始化并且不能被初始化为NULL，指针没有要求</li>
+<li>引用不能改变引用关系（底层用指针常量实现），指针随意</li>
+<li>有多级指针没有多级引用</li>
+<li>自增自减表达的含义不同。指针自加即指针向后偏移一个类型的大小，引用自增即引用的实体自加</li>
+<li>指针用sizeof计算大小结果不同，指针在32位内存下是4字节，在64位内存下是8字节，引用结果为类型大小</li>
+<li>指针是一个实体，需要分配空间；引用是变量的别名，不需要分配内存空间</li>
+<li>访问实体的方式不同，指针需要显示解引用，引用编译器自己处理</li>
+</ol>
+<blockquote>
+<p>在语法概念上,引用就是一个别名,没有独立空间,和其引用实体共用同一块空间.但是在底层实现上实际是有空间的,因为引用是按照指针方式来实现的</p>
+</blockquote>
+<hr>
+<h2 id="malloc-free和new-delete的区别">malloc free和new delete的区别<a hidden class="anchor" aria-hidden="true" href="#malloc-free和new-delete的区别">#</a></h2>
+<ol>
+<li>malloc和free是c语言中的库函数 new和delete是c++中操作符</li>
+<li>new自动计算所需分配内存大小 malloc需要手动计算</li>
+<li>new返回的是对象类型的指针 malloc返回的是void*之后进行类型转换</li>
+<li>new分配失败会抛出异常 malloc分配失败返回的是NULL</li>
+<li>new是在freestore（自由存储区）上分配内存 malloc通常在堆上分配</li>
+<li>delete需要对象类型的指针 free是void*类型的指针</li>
+</ol>
+<blockquote>
+<p>malloc分配的是虚拟内存不一定有物理内存 若小于128k分配在堆上若大于128k分配在文件映射区</p>
+</blockquote>
+<blockquote>
+<p>new
+1 operator new
+2 申请足够的空间
+3 调用构造函数初始化成员变量
+delete
+1 先调用析构函数
+2 operator delete
+3 释放空间</p>
+</blockquote>
+<hr>
+<h2 id="freep怎么知道该释放多大的空间">free(p)怎么知道该释放多大的空间<a hidden class="anchor" aria-hidden="true" href="#freep怎么知道该释放多大的空间">#</a></h2>
+<p>malloc在分配空间时会多分配16个字节用来存储内存块的描述信息
+在free释放空间时会左偏移16个字节读取信息</p>
+<h2 id="malloc出错会发生什么">malloc出错会发生什么<a hidden class="anchor" aria-hidden="true" href="#malloc出错会发生什么">#</a></h2>
+<p>出错原因：
+一是物理内存或虚拟内存不足，即系统可提供的空闲内存无法满足程序的需求；
+二是前面的程序出现了内存访问越界，导致malloc相关函数调用出现问题，这种情况下，再次使用malloc函数申请内存就可能失败
+申请空间失败会返回NULL 会导致空指针</p>
+<hr>
+<h2 id="函数重载重写隐藏的区别">函数重载、重写、隐藏的区别<a hidden class="anchor" aria-hidden="true" href="#函数重载重写隐藏的区别">#</a></h2>
+<p><strong>重载（overload）</strong>：在同一作用域中，同名函数的形式参数（参数个数，类型或顺序）不同时构成函数重载</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>{
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> func(<span style="color:#66d9ef">int</span> a);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">int</span> a,<span style="color:#66d9ef">int</span> b);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">int</span> a,<span style="color:#66d9ef">int</span> b,<span style="color:#66d9ef">int</span> c);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> pstr,<span style="color:#66d9ef">int</span> a);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol>
+<li>函数返回值类型与是否构成函数重载无关，<strong>不能通过函数返回类型不同来重载函数</strong></li>
+<li>类的静态成员函数与普通成员函数可以形成重载</li>
+<li>函数重载发生在同一作用域，如类成员之间的重载，全局函数之间的重载
+<strong>const重载</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span>{
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> funcA();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">funcA</span>() <span style="color:#66d9ef">const</span>;<span style="color:#75715e">//可以通过const重载
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">funcB</span>(<span style="color:#66d9ef">int</span> a);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">funcB</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> a);<span style="color:#75715e">//不行 编译过不了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>funcA函数是合法重载而funcB函数是非法的不能通过编译
+<strong>重写/覆盖（override）</strong>：派生类中与基类同返回值类型、同名和同参数的虚函数重定义，构成虚函数覆盖，也叫虚函数重写
+重写的特殊情况&ndash;协变：当基类和派生类中该函数的返回值为父子关系的指针或者引用，返回值可以不同，这种情况称作协变
+<strong>隐藏（hiding）</strong>：不同作用域中定义的同名函数构成隐藏（不要求函数返回值和参数类型相同）比如派生类成员函数隐藏与其同名的基类成员函数，类成员函数隐藏全局外部函数</p>
+<blockquote>
+<p>在子类中只要函数名和父类相同不是重写就是隐藏
+两个函数参数不同，无论基类函数是不是虚函数，都会被隐藏</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span>{
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> funA(){cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;funA()&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">funB</span>(){cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;funB()&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Heri</span><span style="color:#f92672">:</span><span style="color:#66d9ef">public</span> Base{
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> funA(){cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;funA():Heri&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;}<span style="color:#75715e">//函数隐藏因为不是虚函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">funA</span>(<span style="color:#66d9ef">int</span> a){cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;funA(int a):heri&#34;</span><span style="color:#f92672">&lt;&lt;</span>a<span style="color:#f92672">&lt;&lt;</span>endl;}<span style="color:#75715e">//函数隐藏参数不同
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">funB</span>(){cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;funB():heri&#34;</span><span style="color:#f92672">&lt;&lt;</span>endl;}<span style="color:#75715e">//函数重写
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p><strong>三者对比</strong></p>
+<ol>
+<li>函数重载发生在相同作用域</li>
+<li>函数隐藏发生在不同作用域</li>
+<li>函数覆盖就是函数重写，是函数隐藏的特例</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">三者</th>
+<th style="text-align:left">作用域</th>
+<th style="text-align:left">有无virtual</th>
+<th style="text-align:left">函数名</th>
+<th style="text-align:left">形参列表</th>
+<th style="text-align:left">返回值类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">重载</td>
+<td style="text-align:left">相同</td>
+<td style="text-align:left">可有可无</td>
+<td style="text-align:left">相同</td>
+<td style="text-align:left">不同</td>
+<td style="text-align:left">可同可不同</td>
+</tr>
+<tr>
+<td style="text-align:left">隐藏</td>
+<td style="text-align:left">不同</td>
+<td style="text-align:left">可有可无</td>
+<td style="text-align:left">相同</td>
+<td style="text-align:left">可同可不同</td>
+<td style="text-align:left">可同可不同</td>
+</tr>
+<tr>
+<td style="text-align:left">重写</td>
+<td style="text-align:left">不同</td>
+<td style="text-align:left">有</td>
+<td style="text-align:left">相同</td>
+<td style="text-align:left">相同</td>
+<td style="text-align:left">相同（协变）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="深拷贝和浅拷贝">深拷贝和浅拷贝？<a hidden class="anchor" aria-hidden="true" href="#深拷贝和浅拷贝">#</a></h2>
+<p>c++中，浅拷贝不需要自己实现，编译器会自动生成默认的拷贝构造函数，浅拷贝新旧对象共享一块内存，任何一方的值改变都会影响另一方；深拷贝需要自己手动编写拷贝构造函数，浅拷贝新旧对象不共享内存</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>title:浅拷贝
+</span></span><span style="display:flex;"><span>collapse:close 
+</span></span><span style="display:flex;"><span>c++的浅拷贝是通过拷贝构造函数实现的，如果不重载拷贝构造函数和赋值函数，编译器将以浅拷贝的方式自动生成默认的函数，也就是在拷贝时简单的赋值某个对象的指针，容易造成问题
+</span></span><span style="display:flex;"><span>假设A类有两个对象a和b,a.data为&#34;hello&#34;,b.data为&#34;world&#34;当将a的值赋给b时,可能有以下问题
+</span></span><span style="display:flex;"><span>1.b.data的内存没释放,造成内存泄露
+</span></span><span style="display:flex;"><span>2.b.data和a.data指向了同一块内存,a或b任何一方的值改变都会修改另一方的值
+</span></span><span style="display:flex;"><span>3.在对象被析构时,data被释放了两次
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>title:深拷贝
+</span></span><span style="display:flex;"><span>collapse:close 
+</span></span><span style="display:flex;"><span>深拷贝必须显式提供拷贝构造函数和赋值运算符,而且新旧对象不共享内存,在编写拷贝构造时会开辟一个新的内存空间
+</span></span><span style="display:flex;"><span>什么时候会使用深拷贝?
+</span></span><span style="display:flex;"><span>1.一个对象以值传递的方式传入函数体
+</span></span><span style="display:flex;"><span>2.一个对象以值传递的方式从函数体返回
+</span></span><span style="display:flex;"><span>3.一个对象需要通过另一个对象进行初始化
+</span></span></code></pre></div><h2 id="虚函数表和虚函数表指针的创建时机">虚函数表和虚函数表指针的创建时机？<a hidden class="anchor" aria-hidden="true" href="#虚函数表和虚函数表指针的创建时机">#</a></h2>
+<p><strong>虚函数表</strong>：编译器编译的时候生成，发现virtual关键字修饰的函数后,虚函数表依赖类存在，不依赖对象
+<strong>虚函数表存储在:代码段(常量区)</strong>
+<strong>虚函数表指针</strong>：类对象构造的时候，把类的虚函数表地址赋值给vptr;类的对象前8个字节就是虚函数表的地址；在B继承A的情况下，虚函数表指针赋值过程为先调用基类构造函数，把A的虚函数表的地址赋值给vptr，再调用子类构造函数，把B的虚函数表的地址赋值给vptr;</p>
+<h2 id="构造函数和析构函数能不能是虚函数">构造函数和析构函数能不能是虚函数？<a hidden class="anchor" aria-hidden="true" href="#构造函数和析构函数能不能是虚函数">#</a></h2>
+<p><strong>构造函数不可以</strong></p>
+<ol>
+<li>因为创建一个对象时要确定对象的类型，而虚函数是在运行时确定其类型的，而在构造一个对象时，由于对象还未创建成功，编译器无法知道对象的实际类型。</li>
+<li>虚函数对应一个虚表，可是这个虚表其实是存储在对象的内存空间的。如果构造函数是虚的，就需要通过虚表来调用，可是对象还没有实例化，也就是内存空间还没有，怎么找虚表呢？所以构造函数不能是虚函数。
+<strong>析构函数可以</strong>
+1、在多态当中，基类的方法被定义成虚函数，才可以通过基类指针动态调用派生类的方法，同理当我们delete 基类指针，如果基类析构函数不是虚函数，就无法动态调用到派生类的析构函数，导致派生类的对象无法析构，造成内存泄漏。反之，基类析构函数被定义成虚函数的时候，delete基类指针时，会先析构派生类对象，再析构基类对象</li>
+</ol>
+<h2 id="多态是怎么实现的">多态是怎么实现的？<a hidden class="anchor" aria-hidden="true" href="#多态是怎么实现的">#</a></h2>
+<p><strong>静态多态</strong>：
+编译阶段实现，其原理是由函数重载实现，通过不同的实参调用其相应的同名函数。
+<strong>动态多态</strong>：
+必须通过基类的指针或者引用调用
+被调用的必须是虚函数，且在派生类中实现了该虚函数的重写 （注意：只有虚函数才有重写这个概念）
+动态多态的实现是依靠不同对象的虚函数指针指向的虚函数表实现的，因为里面存储了对应的虚函数
+对象的指针或者引用调用虚函数时，不是编译时决议，而是运行时决议，即程序开始运行时到指定的对象虚函数表中去调用对应的虚函数，所以指向基类对象，调用是基类虚函数，指向派生类对象，调用是派生类虚函数</p>
+<blockquote>
+<p>1.先将基类中的虚表内容拷贝一份到派生类虚表中
+2.如果派生类重写基类中某个虚函数，派生类自己的虚函数覆盖虚表中基类的虚函数
+3.派生类自己新增加的虚函数按其在 派生类中的声明次序增加到派生类虚表的最后</p>
+</blockquote>
+<h2 id="c和c的区别">C和C++的区别<a hidden class="anchor" aria-hidden="true" href="#c和c的区别">#</a></h2>
+<p>C++语言支持函数重载，而C不支持函数重载</p>
+<h2 id="c-编译过程">C ++编译过程<a hidden class="anchor" aria-hidden="true" href="#c-编译过程">#</a></h2>
+<ol>
+<li><strong>预处理阶段</strong>：引入头文件，宏替换，<strong>删除注释</strong>，生产以i为结尾的<strong>预编译文件</strong></li>
+<li><strong>编译阶段</strong>：检查语法错误，没有错误将代码解释为汇编，生成以s为结尾的<strong>汇编文件</strong></li>
+<li><strong>汇编阶段</strong>：将汇编代码解释为二进制的cpu指令，生成以o结尾的<strong>可重定向目标文件</strong></li>
+<li><strong>链接阶段</strong>：目标文件不能直接执行，因为某个.cpp文件调用另外一个.cpp文件，为了解决这类问题，调用目标文件与被调用的目标文件连接起来，最终得到可执行程序exe，链接分为静态静态链接和动态链接
+<ul>
+<li><strong>静态链接</strong>：目标文件直接拷贝到可执行文件中的链接方式，使用静态链接生成静态库，静态库对函数库的链接是在<strong>编译时期</strong>完成的</li>
+<li><strong>动态链接</strong>：<strong>程序运行</strong>时动态加载目标文件的链接方式</li>
+</ul>
+</li>
+</ol>
+<h2 id="c有几种传参方式区别是什么">C++有几种传参方式，区别是什么？<a hidden class="anchor" aria-hidden="true" href="#c有几种传参方式区别是什么">#</a></h2>
+<p>值传递：形参是实参的拷贝，在外部某个函数中改变形参的值并不会影响主函数内的数据
+指针传递：形参为指向实参地址的指针，当对形参的指向操作时，就相当于对实参本身进行的操作，函数传递的时候只传入一个指针占用四个字节的空间
+引用传递：形参相当于是实参的“别名”，对形参的操作其实就是对实参的操作，在引用传递过程中，被调函数的形式参数虽然也作为局部变量在栈中开辟了内存空间，但是这时存放的是由主调函数放进来的实参变量的地址</p>
+<h2 id="include头文件的顺序以及双引号和尖括号的区别">include头文件的顺序以及双引号和尖括号的区别？<a hidden class="anchor" aria-hidden="true" href="#include头文件的顺序以及双引号和尖括号的区别">#</a></h2>
+<p>尖括号&lt;&gt;的头文件是系统文件（标准库），双引号&quot;&ldquo;的头文件是自定义文件
+使用尖括号的查找路径：编译器设置的头文件路径-&gt;系统变量
+使用双引号的查找路径：当前头文件目录-&gt;编译器设置的头文件路径-&gt;系统变量</p>
+<h2 id="常量指针和指针常量的区别">常量指针和指针常量的区别<a hidden class="anchor" aria-hidden="true" href="#常量指针和指针常量的区别">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span>p1 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>b;<span style="color:#75715e">//const在前,p1为常量指针
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> p2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>c;<span style="color:#75715e">//*在前，p2为指针常量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>p1 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a;<span style="color:#75715e">//正确，p1是常量指针，可以指向新的地址(即&amp;a),即p1本身可以改变
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">*</span>p1 <span style="color:#f92672">=</span> a;<span style="color:#75715e">//错误，*p1是指针p1指向对象的值,不可以改变，因此不能对*p重新赋值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>p2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a;<span style="color:#75715e">//错误，p2是指针常量，本身不可以改变，因此将a的地址赋给p2是错误的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">*</span>p2 <span style="color:#f92672">=</span> a;<span style="color:#75715e">//正确，p2指向的对象允许改变
+</span></span></span></code></pre></div><p>常量指针p1：即指向const对象的指针，指向的地址可以改变，但其指向的内容（即对象的值）不可以改变
+指针常量p2：指针本身是常量，即指向的地址本身不可以改变，但内容（即对象的值）可以改变</p>
+<h2 id="声明定义和初始化">声明、定义和初始化<a hidden class="anchor" aria-hidden="true" href="#声明定义和初始化">#</a></h2>
+<p>声明：声明主要用于向程序表明变量的类型和名字，它不会为变量分配存储空间，可多次声明
+定义：定义则是为变量分配存储空间，同时可以为变量指定初始值。当定义一个变量时，同时声明了它的类型。对于变量而言，定义只能有一次
+初始化：初始化则是为变量赋初值</p>
+<h2 id="vector插入元素进行几次内存拷贝">vector插入元素，进行几次内存拷贝？<a hidden class="anchor" aria-hidden="true" href="#vector插入元素进行几次内存拷贝">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>title:test
+</span></span><span style="display:flex;"><span>collapse: open
+</span></span><span style="display:flex;"><span>icon: triforce
+</span></span><span style="display:flex;"><span>color: 200,50, 200
+</span></span><span style="display:flex;"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
+</span></span></code></pre></div><h2 id="内存泄漏内存溢出和内存越界">内存泄漏、内存溢出和内存越界<a hidden class="anchor" aria-hidden="true" href="#内存泄漏内存溢出和内存越界">#</a></h2>
+<p>内存泄漏：程序中已动态分配的堆内存由于某种原因程序未释放或无法释放，造成系统内存的浪费
+内存溢出：系统中存在无法回收的内存或使用的内存过多，最终使得程序运行要用到的内存大于能提供的最大内存
+内存越界：程序在运行过程中访问了不在预分配的内存空间或者超出了已分配内存空间的大小</p>
+<h2 id="栈区会内存泄漏吗">栈区会内存泄漏吗？<a hidden class="anchor" aria-hidden="true" href="#栈区会内存泄漏吗">#</a></h2>
+<p>栈区一般不会发生内存泄露</p>
+<h2 id="如何解决栈溢出">如何解决栈溢出？<a hidden class="anchor" aria-hidden="true" href="#如何解决栈溢出">#</a></h2>
+<ol>
+<li>减少函数递归层次</li>
+<li>减少局部变量数量</li>
+<li>扩大栈的空间</li>
+</ol>
+<h2 id="空指针和野指针">空指针和野指针<a hidden class="anchor" aria-hidden="true" href="#空指针和野指针">#</a></h2>
+<p><strong>野指针</strong>：指针指向的空间是不可知的、随机的、没有明确限制的
+产生野指针的三种情况：</p>
+<ol>
+<li>指针未初始化</li>
+<li>指针越界访问</li>
+<li>指针指向的空间释放
+规避野指针：</li>
+<li>指针初始化</li>
+<li>小心指针越界</li>
+<li>指针指向空间释放及时置NULL</li>
+<li>避免返回局部变量的地址</li>
+<li>指针使用之前检查有效性
+<strong>空指针</strong>：指向对象为空的指针
+空指针p并不表示指向0x00000000地址的存储单元，而是表示不指向任何有效空间，虽然输出是如此</li>
+</ol>
+<h1 id="内存相关">内存相关<a hidden class="anchor" aria-hidden="true" href="#内存相关">#</a></h1>
+<h2 id="堆和栈的区别">堆和栈的区别<a hidden class="anchor" aria-hidden="true" href="#堆和栈的区别">#</a></h2>
+<ol>
+<li><strong>堆栈空间分配不同</strong>：栈由操作系统自动分配释放，存放函数的参数值，局部变量的值等；堆一般由程序员分配释放。</li>
+<li><strong>堆栈缓存方式不同</strong>：栈使用的是一级缓存，它们通常都是被调用时处于存储空间中，调用完毕立即释放；堆则是存放在二级缓存中，速度要慢些。</li>
+<li><strong>堆栈数据结构不同</strong>：堆类似数组结构；栈类似栈结构，先进后出。</li>
+</ol>
+<h2 id="内存管理">内存管理<a hidden class="anchor" aria-hidden="true" href="#内存管理">#</a></h2>
+<p>内存分成5个区，他们分别是堆、栈、自由存储区、全局/静态存储区和常量存储区。</p>
+<ol>
+<li><strong>栈</strong>：在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放</li>
+<li><strong>堆</strong>：由new创建的内存块，一般一个new对应一个delete</li>
+<li><strong>自由存储区</strong>：由malloc分配的内存块，类似于堆，用free释放</li>
+<li><strong>全局/静态存储区</strong>：全局变量和静态变量被分配到同一块内存</li>
+<li><strong>常量存储区</strong>：存放常量，不允许修改</li>
+</ol>
+<h2 id="内存泄漏">内存泄漏<a hidden class="anchor" aria-hidden="true" href="#内存泄漏">#</a></h2>
+<p>常见的内存泄漏：</p>
+<ol>
+<li>new和malloc申请资源使用后，没用delete和free释放</li>
+<li>子类继承父类时，父类析构函数不是虚函数</li>
+<li>windows句柄资源使用后没有释放</li>
+</ol>
+<h2 id="程序有哪些section分别的作用程序启动的过程怎么判断数据分配在栈上还是堆上">程序有哪些section，分别的作用？程序启动的过程？怎么判断数据分配在栈上还是堆上？<a hidden class="anchor" aria-hidden="true" href="#程序有哪些section分别的作用程序启动的过程怎么判断数据分配在栈上还是堆上">#</a></h2>
+<p>![[Pasted image 20240321202842.png]]
+从低地址到高地址，一个程序又代码段、数据段、BSS段、堆、共享区、栈等组成</p>
+<ol>
+<li>数据段：存放程序中已经初始化的全局变量和静态变量的一块内存区域</li>
+<li>代码段：存放程序执行代码的一块内存区域，只读，代码段头部还包含一些只读的常数变量</li>
+<li>BSS段：存放程序中未初始化的全局变量和静态变量的一块内存区域</li>
+<li>堆区：动态申请内存使用，堆从低地址向高地址增长</li>
+<li>共享区：位于堆和栈之间</li>
+<li>栈区：存储局部变量、函数参数值。栈从高地址向低地址增长，是连续的空间</li>
+</ol>
+<h1 id="关键字">关键字<a hidden class="anchor" aria-hidden="true" href="#关键字">#</a></h1>
+<h2 id="const关键字">const关键字<a hidden class="anchor" aria-hidden="true" href="#const关键字">#</a></h2>
+<p>const:常量限定符，通知编译器该变量不可修改
+const修饰一般常量和数组</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>; <span style="color:#75715e">//与上面等价
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">const</span> arr [<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> arr [<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>};<span style="color:#75715e">//与上面等价
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span>;     <span style="color:#75715e">// 非const指针非const数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span>;  <span style="color:#75715e">// 非const指针,const数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> p <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span>;   <span style="color:#75715e">// const指针,非const数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> p <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span>;  <span style="color:#75715e">// const指针,const数据
+</span></span></span></code></pre></div><h2 id="inline关键字内联">inline关键字（内联）<a hidden class="anchor" aria-hidden="true" href="#inline关键字内联">#</a></h2>
+<p>编译器在编译阶段完成对inline函数的处理，即对inline函数的调用替换为函数的本体，但这只是对编译器的建议，编译器可以这样做，也可以不这样做</p>
+<ol>
+<li>将inline函数体复制到inline函数调用处</li>
+<li>为所用inline函数中的局部变量分配到内存空间</li>
+<li>将Inline函数的输入参数和返回值映射到调用方法的局部变量空间中</li>
+<li>如果inline函数有多个返回点，将其转变为inline函数代码块末尾的分支
+<strong>inline通过消除调用开销来提升性能</strong>
+相比宏函数的优点：</li>
+</ol>
+<ul>
+<li>内联函数同宏函数一样在被调用处进行代码展开，省去了参数压栈、栈帧开辟和回收、结果返回等，从而提高程序运行速度</li>
+<li>内联函数相比宏函数来说，在代码展开时，会做安全检查或自动类型转换（同普通函数），而宏定义不会
+缺点：</li>
+<li>代码膨胀，空间换时间</li>
+<li>inline函数无法随着函数库升级而升级</li>
+<li>是否内联，程序员不可控，inline关键字只是对编译器的建议，决定权在编译器</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>- 使用函数指针调用内联函数会导致内联失败
+</span></span><span style="display:flex;"><span>- 如果函数代码过长或者有多重循环语句,if或witch分支语句或递归时,不宜用内联
+</span></span><span style="display:flex;"><span>- 类的构造函数、析构函数和虚函数不适合inline函数
+</span></span></code></pre></div><h2 id="explicit关键字">explicit关键字<a hidden class="anchor" aria-hidden="true" href="#explicit关键字">#</a></h2>
+<p>explicit用于修饰只有一个参数的类构造函数，表明该构造函数必须显式调用，禁止隐式转换</p>
+<h1 id="c11">C++11<a hidden class="anchor" aria-hidden="true" href="#c11">#</a></h1>
+<h2 id="左值引用和右值引用">左值引用和右值引用<a hidden class="anchor" aria-hidden="true" href="#左值引用和右值引用">#</a></h2>
+<p>引用：是变量的别名，不占内存空间，声明时必须初始化（不能为NULL），通过引用
+修改变量值
+左值：可以在等号两边，能取到地址的有名字的都是左值
+变量名、返回左值引用的函数调用、前置自增/自减，解引用，赋值运算等
+右值：只能在等号右边，不能取到地址没有名字的是右值
+纯右值：字面值、返回非引用类型的函数调用，后置自增/自减，各种表达式
+将亡值：c++11新引入的与右值引用（移动语义）相关的值类型，用来触发移动
+构造或移动赋值构造，并进行资源转移，之后调用析构函数
+左值引用：对左值的引用，避免对象拷贝，函数传参，函数返回值
+右值引用：对右值的引用，实现移动语义，实现完美转发
+const左值引用能指向右值（不能修改这个值），为此引入右值引用
+右值引用通过std::move()可以指向左值
+声明出来的左值引用或右值引用都是左值</p>
+<h1 id="stl">STL<a hidden class="anchor" aria-hidden="true" href="#stl">#</a></h1>
+
+
+        </div>
+        <div class="post-reward">
+            <div style="padding: 0 0 0 0; margin: 0 0 0 0; width: 100%; font-size:16px; text-align: center;">
+                <div id="QR" style="opacity: 0;">
+                    <div id="wechat" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="wechat_qr" src="https://littlestonemax.github.io/img/wechat_pay.png" alt="wechat_pay"></a>
+                        <p>微信</p>
+                    </div>
+                    <div id="alipay" style="display: inline-block">
+                        <a class="fancybox" rel="group">
+                            <img id="alipay_qr" src="https://littlestonemax.github.io/img/alipay.png" alt="alipay"></a>
+                        <p>支付宝</p>
+                    </div>
+                </div>
+                <button id="rewardButton"
+                        onclick="
+                    var qr = document.getElementById('QR');
+                    if (qr.style.opacity === '0') {
+                        qr.style.opacity='1';
+                    } else {
+                        qr.style.opacity='0'
+                    }"
+                >
+                    <span>🧧 鼓励</span>
+                </button>
+            </div>
+        </div>
+
+        <footer class="post-footer">
+            
+<nav class="paginav">
+  <a class="next" href="https://littlestonemax.github.io/posts/tech/linux%E5%85%A5%E9%97%A8/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>Linux入门</span>
+  </a>
+</nav>
+
+        </footer>
+    </div>
+
+<style>
+    .comments_details summary::marker {
+        font-size: 20px;
+        content: '👉展开评论';
+        color: var(--content);
+    }
+    .comments_details[open] summary::marker{
+        font-size: 20px;
+        content: '👇关闭评论';
+        color: var(--content);
+    }
+</style>
+
+
+<div>
+    <details class="comments_details">
+        <summary style="cursor: pointer; margin: 50px 0 20px 0;width: 130px;">
+            <span style="font-size: 20px;color: var(--content);">...</span>
+        </summary>
+        <div id="tcomment"></div>
+    </details>
+    <script src="https://cdn.staticfile.org/twikoo/1.5.8/twikoo.all.min.js">
+    </script>
+    <script>
+        twikoo.init({
+            envId:  null ,
+        el: "#tcomment",
+            lang: 'zh-CN',
+            region:  null ,
+        path: window.TWIKOO_MAGIC_PATH||window.location.pathname,
+        })
+    </script>
+</div>
+</article>
+</main>
+
+<footer class="footer">
+    <span>
+        Copyright
+        &copy;
+        2020-2024
+        <a href="https://littlestonemax.github.io/" style="color:#939393;">Stone&#39;s Blog</a>
+        All Rights Reserved
+    </span>
+    <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#939393;">填写自己的备案号</a>&nbsp;
+    <span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=null"
+           style="display:inline-block;text-decoration:none;height:20px;color:#939393;">
+            <img src="%e5%a1%ab%e8%87%aa%e5%b7%b1%e7%9a%84%e5%85%ac%e5%ae%89%e5%9b%be%e6%a0%87%e9%93%be%e6%8e%a5" style="float:left;margin: 0px 5px 0px 0px;"/>
+            填自己的公网安备
+        </a>
+    </span>
+    <span id="busuanzi_container">
+        <span class="fa fa-user"></span> <span id="busuanzi_value_site_uv"></span>
+        <span class="fa fa-eye"></span> <span id="busuanzi_value_site_pv"></span>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <span class="topInner">
+        <svg class="topSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z"/>
+        </svg>
+        <span id="read_progress"></span>
+    </span>
+</a>
+
+<script>
+    document.addEventListener('scroll', function (e) {
+        const readProgress = document.getElementById("read_progress");
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        readProgress.innerText = ((scrollTop / (scrollHeight - clientHeight)).toFixed(2) * 100).toFixed(0);
+    })
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+</script>
+<script>
+    let mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        (function() {
+            document.cookie = "change-themes" + "="+ escape ("false");
+        })()
+
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    });
+</script>
+
+<script>
+    document.body.addEventListener('copy', function (e) {
+        if (window.getSelection().toString() && window.getSelection().toString().length > 50) {
+            let clipboardData = e.clipboardData || window.clipboardData;
+            if (clipboardData) {
+                e.preventDefault();
+                let htmlData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                let textData = window.getSelection().toString() +
+                    '\r\n\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                clipboardData.setData('text/html', htmlData);
+                clipboardData.setData('text/plain', textData);
+            }
+        }
+    });
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = '复制';
+
+        function copyingDone() {
+            copybutton.innerText = '已复制！';
+            setTimeout(() => {
+                copybutton.innerText = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                let text = codeblock.textContent +
+                    '\r\n————————————————\r\n' +
+                    '版权声明：本文为「'+"Stone's Blog"+'」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。' +
+                '\r\n原文链接：' + location.href;
+                navigator.clipboard.writeText(text);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) {}
+            selection.removeRange(range);
+        });
+
+        let language = codeblock.className.replaceAll("language-", "")
+        let macTool = document.createElement("div")
+        let macTool1 = document.createElement("div")
+        let macTool2 = document.createElement("div")
+        let macTool3 = document.createElement("div")
+        let languageType = document.createElement("div")
+        languageType.innerText = language
+        macTool.setAttribute('class', 'mac-tool')
+        macTool1.setAttribute('class', 'mac bb1')
+        macTool2.setAttribute('class', 'mac bb2')
+        macTool3.setAttribute('class', 'mac bb3')
+        languageType.setAttribute('class', 'language-type')
+        macTool.appendChild(macTool1)
+        macTool.appendChild(macTool2)
+        macTool.appendChild(macTool3)
+        macTool.appendChild(languageType)
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+            container.appendChild(macTool)
+        }
+    });
+</script>
+</body>
+
+</html>
