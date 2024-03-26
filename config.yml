@@ -102,7 +102,7 @@ params:
     title: Hello World!
     subtitle:
     # subtitle: "🧨学而时习之，不亦说乎？有朋自远方来，不亦乐乎？<br/>👇联系方式"
-    imageUrl: "img/Q.gif"
+    imageUrl: "img/Q.jpg"
     imageTitle:
     imageWidth: 150
     imageHeight: 150
@@ -138,7 +138,7 @@ params:
 
   label: # 左上角图标
     text: "Stone's Blog"
-    icon: "img/Q.gif"
+    icon: "img/Q.jpg"
     iconHeight: 35
 
   analytics:
@@ -198,7 +198,7 @@ markup:
     # anchorLineNos: true
     codeFences: true
     guessSyntax: true
-    lineNos: true
+    lineNos: false
     noClasses: true
     tabWidth: 4
     style: monokai
